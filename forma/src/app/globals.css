@@ -1,0 +1,201 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f7f2;
+  --foreground: #181a1f;
+  --brand-ink: #111317;
+  --brand-forest: #123f31;
+  --brand-lime: #c8ff55;
+  --brand-paper: #fbfaf4;
+  --brand-line: #ded9c8;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #f7f7f2;
+    --foreground: #181a1f;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+html {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img,
+svg,
+video,
+canvas,
+iframe {
+  max-width: 100%;
+}
+
+pre,
+code {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+::selection {
+  background: var(--brand-lime);
+  color: var(--brand-ink);
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 1279px) {
+  .app-sidebar {
+    display: none !important;
+  }
+
+  .app-mobile-header {
+    display: block !important;
+  }
+
+  .app-mobile-nav {
+    display: grid !important;
+  }
+}
+
+:root[data-theme="dark"] {
+  --background: #08090b;
+  --foreground: #f4f4ee;
+  --brand-ink: #f4f4ee;
+  --brand-forest: #c8ff55;
+  --brand-paper: #111317;
+  --brand-line: #2c302b;
+}
+
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] main {
+  background: #08090b !important;
+  color: #f4f4ee !important;
+}
+
+:root[data-theme="dark"] body {
+  color-scheme: dark;
+}
+
+:root[data-theme="dark"] .bg-\[\#08090b\],
+:root[data-theme="dark"] .bg-\[\#101211\],
+:root[data-theme="dark"] .bg-\[\#111317\],
+:root[data-theme="dark"] .bg-\[\#15171d\],
+:root[data-theme="dark"] .bg-\[\#181a1f\] {
+  background-color: #07080a !important;
+}
+
+:root[data-theme="dark"] section,
+:root[data-theme="dark"] aside,
+:root[data-theme="dark"] article,
+:root[data-theme="dark"] form,
+:root[data-theme="dark"] .app-mobile-header {
+  border-color: #2c302b !important;
+}
+
+:root[data-theme="dark"] .bg-white {
+  background-color: #111317 !important;
+}
+
+:root[data-theme="dark"] .bg-\[\#fbfaf4\],
+:root[data-theme="dark"] .bg-\[\#f7f7f2\],
+:root[data-theme="dark"] .bg-\[\#f4f2e9\],
+:root[data-theme="dark"] .bg-\[\#f0eadb\],
+:root[data-theme="dark"] .bg-\[\#fff7cc\] {
+  background-color: #171a1f !important;
+}
+
+:root[data-theme="dark"] .text-\[\#101211\],
+:root[data-theme="dark"] .text-\[\#111317\],
+:root[data-theme="dark"] .text-\[\#181a1f\],
+:root[data-theme="dark"] .text-\[\#0f1117\],
+:root[data-theme="dark"] .text-\[\#15171d\] {
+  color: #f4f4ee !important;
+}
+
+:root[data-theme="dark"] .text-\[\#62695f\],
+:root[data-theme="dark"] .text-\[\#636a61\],
+:root[data-theme="dark"] .text-\[\#656b62\],
+:root[data-theme="dark"] .text-\[\#5f665c\],
+:root[data-theme="dark"] .text-\[\#4d554b\],
+:root[data-theme="dark"] .text-\[\#535b50\],
+:root[data-theme="dark"] .text-\[\#555d52\] {
+  color: #c6cec0 !important;
+}
+
+:root[data-theme="dark"] .text-\[\#5d531c\] {
+  color: #f5eab2 !important;
+}
+
+:root[data-theme="dark"] .text-white {
+  color: #f4f4ee !important;
+}
+
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] textarea,
+:root[data-theme="dark"] select {
+  background: #171a1f !important;
+  border-color: #343932 !important;
+  color: #f4f4ee !important;
+}
+
+:root[data-theme="dark"] input::placeholder,
+:root[data-theme="dark"] textarea::placeholder {
+  color: #8f998c !important;
+}
+
+:root[data-theme="dark"] .border-\[\#ded9c8\],
+:root[data-theme="dark"] .border-\[\#d8d2bf\],
+:root[data-theme="dark"] .border-\[\#e6e1d1\],
+:root[data-theme="dark"] .border-\[\#d6c981\] {
+  border-color: #343932 !important;
+}
+
+:root[data-theme="dark"] .hover\:bg-\[\#f4f2e9\]:hover {
+  background-color: #20242b !important;
+}
+
+:root[data-theme="dark"] .bg-\[\#c8ff55\] {
+  background-color: #c8ff55 !important;
+  color: #07100d !important;
+}
+
+:root[data-theme="dark"] .bg-\[\#c8ff55\] * {
+  color: #07100d !important;
+}
+
+:root[data-theme="dark"] .bg-\[\#c8ff55\] .bg-\[\#101211\],
+:root[data-theme="dark"] .bg-\[\#c8ff55\] .bg-\[\#111317\],
+:root[data-theme="dark"] .bg-\[\#c8ff55\] .bg-\[\#15171d\] {
+  background-color: #07100d !important;
+  color: #c8ff55 !important;
+}
+
+:root[data-theme="dark"] .shadow-sm,
+:root[data-theme="dark"] .shadow-2xl {
+  box-shadow: none !important;
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="360" viewBox="0 0 720 360" role="img" aria-labelledby="title">
+  <title id="title">Shoulder press exercise illustration</title>
+  <rect width="720" height="360" rx="28" fill="#111317"/>
+  <circle cx="360" cy="112" r="26" fill="#c8ff55"/>
+  <path d="M360 140 V232" stroke="#f7f7f2" stroke-width="22" stroke-linecap="round"/>
+  <path d="M330 162 L278 86 M390 162 L442 86" stroke="#c8ff55" stroke-width="18" stroke-linecap="round"/>
+  <path d="M248 78 H306 M414 78 H472" stroke="#f7f7f2" stroke-width="12" stroke-linecap="round"/>
+  <path d="M360 232 L310 300 M360 232 L410 300" stroke="#c8ff55" stroke-width="20" stroke-linecap="round"/>
+</svg>

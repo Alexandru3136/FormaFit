@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="360" viewBox="0 0 720 360" role="img" aria-labelledby="title">
+  <title id="title">Cable row exercise illustration</title>
+  <rect width="720" height="360" rx="28" fill="#111317"/>
+  <path d="M116 78 V294" stroke="#527b20" stroke-width="16" stroke-linecap="round"/>
+  <path d="M116 150 H310" stroke="#c8ff55" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="390" cy="104" r="25" fill="#c8ff55"/>
+  <path d="M376 132 L326 210 L276 248" fill="none" stroke="#f7f7f2" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M378 148 L312 152" stroke="#f7f7f2" stroke-width="18" stroke-linecap="round"/>
+  <path d="M326 210 L438 248 L522 294" fill="none" stroke="#c8ff55" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M282 248 H548" stroke="#527b20" stroke-width="12" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="360" viewBox="0 0 720 360" role="img" aria-labelledby="title">
+  <title id="title">Plank exercise illustration</title>
+  <rect width="720" height="360" rx="28" fill="#111317"/>
+  <circle cx="250" cy="142" r="24" fill="#c8ff55"/>
+  <path d="M276 154 L430 196 L560 204" fill="none" stroke="#f7f7f2" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M330 170 L286 242" stroke="#c8ff55" stroke-width="18" stroke-linecap="round"/>
+  <path d="M506 202 L562 268" stroke="#c8ff55" stroke-width="18" stroke-linecap="round"/>
+  <path d="M230 268 H588" stroke="#527b20" stroke-width="12" stroke-linecap="round"/>
+</svg>
