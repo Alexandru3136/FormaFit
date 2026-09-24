@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 type BeforeInstallPromptEvent = Event & {
   prompt: () => Promise<void>;
@@ -23,6 +24,7 @@ function isStandalone() {
 }
 
 export function PwaInstallButton() {
+  const t = useTranslations("pwa");
   const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showIosHint, setShowIosHint] = useState(false);
   const [installed, setInstalled] = useState(false);
@@ -69,7 +71,7 @@ export function PwaInstallButton() {
   if (installed) {
     return (
       <span className="rounded-lg border border-[#d8d2bf] bg-[#fbfaf4] px-4 py-3 text-sm font-black text-[#123f31]">
-        Forma instalata
+        {t("installed")}
       </span>
     );
   }
@@ -81,7 +83,7 @@ export function PwaInstallButton() {
         onClick={installApp}
         type="button"
       >
-        Instaleaza app
+        {t("install")}
       </button>
     );
   }
@@ -89,7 +91,7 @@ export function PwaInstallButton() {
   if (showIosHint) {
     return (
       <span className="rounded-lg border border-[#d8d2bf] bg-[#fbfaf4] px-4 py-3 text-sm font-black text-[#123f31]">
-        iOS: Share, apoi Add to Home Screen
+        {t("iosHint")}
       </span>
     );
   }

@@ -123,5 +123,42 @@
     "afterSaving": "After saving, your meal plan appears here.",
     "gymPlan": "Gym plan",
     "meal": "Meal"
+  },
+  "brand": {
+    "tagline": "food, gym, progress"
+  },
+  "pwa": {
+    "installed": "Forma installed",
+    "install": "Install app",
+    "iosHint": "iOS: Share, then Add to Home Screen"
+  },
+  "preview": {
+    "free": "Free",
+    "dashboardToday": "Today's dashboard",
+    "goodMorning": "Good morning",
+    "caloriesLeft": "Calories left",
+    "caloriesLeftHelper": "of 1,850 kcal",
+    "protein": "Protein",
+    "proteinHelper": "target 125g",
+    "water": "Water",
+    "waterHelper": "900ml more",
+    "coach": "Coach",
+    "coachText": "You still have room for a protein-rich dinner. I can make 3 options from the ingredients you already have."
+  },
+  "terms": {
+    "kicker": "legal",
+    "title": "Terms of use",
+    "p1": "Forma is an organization tool for nutrition, workouts, and progress. Calorie estimates, macros, and AI recommendations are indicative.",
+    "p2": "The app does not replace a doctor, nutritionist, qualified trainer, or medical evaluation. For pain, symptoms, pregnancy, chronic illness, or a history of eating disorders, seek qualified help.",
+    "p3": "Premium access is granted only after real payment confirmation through the configured payment processor.",
+    "back": "Back to Forma"
+  },
+  "privacy": {
+    "kicker": "privacy",
+    "title": "Privacy policy",
+    "p1": "Forma stores the data needed for your account: name, email, hashed password, profile, meals, plans, progress, and subscription status.",
+    "p2": "API keys and payment secrets stay on the server. Premium access is verified via a signed webhook, not by the state of a button in the browser.",
+    "p3": "You can request account deletion from your profile. For production, this page must be completed with the legal operator, retention period, and data controller contact.",
+    "back": "Back to Forma"
   }
 }

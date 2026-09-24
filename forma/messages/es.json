@@ -123,5 +123,42 @@
     "afterSaving": "Después de guardar, tu plan de comidas aparece aquí.",
     "gymPlan": "Plan de gimnasio",
     "meal": "Comida"
+  },
+  "brand": {
+    "tagline": "comida, gimnasio, progreso"
+  },
+  "pwa": {
+    "installed": "Forma instalada",
+    "install": "Instalar app",
+    "iosHint": "iOS: Compartir, luego Añadir a inicio"
+  },
+  "preview": {
+    "free": "Free",
+    "dashboardToday": "Panel de hoy",
+    "goodMorning": "Buenos días",
+    "caloriesLeft": "Calorías restantes",
+    "caloriesLeftHelper": "de 1.850 kcal",
+    "protein": "Proteína",
+    "proteinHelper": "objetivo 125g",
+    "water": "Agua",
+    "waterHelper": "900ml más",
+    "coach": "Coach",
+    "coachText": "Aún tienes espacio para una cena rica en proteínas. Puedo hacerte 3 opciones con los ingredientes que ya tienes."
+  },
+  "terms": {
+    "kicker": "legal",
+    "title": "Términos de uso",
+    "p1": "Forma es una herramienta de organización para nutrición, entrenamientos y progreso. Las estimaciones de calorías, macros y recomendaciones de IA son orientativas.",
+    "p2": "La app no reemplaza a un médico, nutricionista, entrenador cualificado o evaluación médica. Ante dolor, síntomas, embarazo, enfermedades crónicas o antecedentes de trastornos alimentarios, busca ayuda cualificada.",
+    "p3": "El acceso Premium se concede solo tras la confirmación real del pago mediante el procesador de pagos configurado.",
+    "back": "Volver a Forma"
+  },
+  "privacy": {
+    "kicker": "privacidad",
+    "title": "Política de privacidad",
+    "p1": "Forma guarda los datos necesarios para la cuenta: nombre, email, contraseña cifrada, perfil, comidas, planes, progreso y estado de suscripción.",
+    "p2": "Las claves API y los secretos de pago permanecen en el servidor. El acceso Premium se verifica mediante un webhook firmado, no por el estado de un botón en el navegador.",
+    "p3": "El usuario puede solicitar la eliminación de la cuenta desde su perfil. Para producción, esta página debe completarse con el operador legal, el periodo de retención y el contacto del responsable de datos.",
+    "back": "Volver a Forma"
   }
 }

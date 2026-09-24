@@ -123,5 +123,42 @@
     "afterSaving": "Après l'enregistrement, ton plan repas apparaît ici.",
     "gymPlan": "Plan sport",
     "meal": "Repas"
+  },
+  "brand": {
+    "tagline": "repas, sport, progrès"
+  },
+  "pwa": {
+    "installed": "Forma installée",
+    "install": "Installer l'app",
+    "iosHint": "iOS : Partager, puis Ajouter à l'écran d'accueil"
+  },
+  "preview": {
+    "free": "Free",
+    "dashboardToday": "Tableau de bord du jour",
+    "goodMorning": "Bonjour",
+    "caloriesLeft": "Calories restantes",
+    "caloriesLeftHelper": "sur 1 850 kcal",
+    "protein": "Protéines",
+    "proteinHelper": "objectif 125g",
+    "water": "Eau",
+    "waterHelper": "encore 900ml",
+    "coach": "Coach",
+    "coachText": "Il te reste de la place pour un dîner riche en protéines. Je peux te proposer 3 options avec les ingrédients que tu as déjà."
+  },
+  "terms": {
+    "kicker": "légal",
+    "title": "Conditions d'utilisation",
+    "p1": "Forma est un outil d'organisation pour la nutrition, les entraînements et les progrès. Les estimations de calories, les macros et les recommandations IA sont indicatives.",
+    "p2": "L'application ne remplace pas un médecin, un nutritionniste, un coach qualifié ou une évaluation médicale. En cas de douleur, symptômes, grossesse, maladies chroniques ou antécédents de troubles alimentaires, demande une aide qualifiée.",
+    "p3": "L'accès Premium n'est accordé qu'après confirmation réelle du paiement via le processeur de paiement configuré.",
+    "back": "Retour à Forma"
+  },
+  "privacy": {
+    "kicker": "confidentialité",
+    "title": "Politique de confidentialité",
+    "p1": "Forma enregistre les données nécessaires au compte : nom, email, mot de passe haché, profil, repas, plans, progrès et statut d'abonnement.",
+    "p2": "Les clés API et les secrets de paiement restent sur le serveur. L'accès Premium est vérifié via un webhook signé, pas par l'état d'un bouton dans le navigateur.",
+    "p3": "L'utilisateur peut demander la suppression du compte depuis son profil. Pour la production, cette page doit être complétée avec l'opérateur légal, la durée de conservation et le contact du responsable des données.",
+    "back": "Retour à Forma"
   }
 }

@@ -123,5 +123,42 @@
     "afterSaving": "Dopo il salvataggio, il tuo piano pasti appare qui.",
     "gymPlan": "Piano palestra",
     "meal": "Pasto"
+  },
+  "brand": {
+    "tagline": "cibo, palestra, progressi"
+  },
+  "pwa": {
+    "installed": "Forma installata",
+    "install": "Installa app",
+    "iosHint": "iOS: Condividi, poi Aggiungi a Home"
+  },
+  "preview": {
+    "free": "Free",
+    "dashboardToday": "Dashboard di oggi",
+    "goodMorning": "Buongiorno",
+    "caloriesLeft": "Calorie rimaste",
+    "caloriesLeftHelper": "di 1.850 kcal",
+    "protein": "Proteine",
+    "proteinHelper": "obiettivo 125g",
+    "water": "Acqua",
+    "waterHelper": "altri 900ml",
+    "coach": "Coach",
+    "coachText": "Hai ancora spazio per una cena ricca di proteine. Posso farti 3 opzioni con gli ingredienti che hai già."
+  },
+  "terms": {
+    "kicker": "legale",
+    "title": "Termini d'uso",
+    "p1": "Forma è uno strumento di organizzazione per nutrizione, allenamenti e progressi. Le stime di calorie, i macro e i consigli AI sono indicativi.",
+    "p2": "L'app non sostituisce un medico, un nutrizionista, un allenatore qualificato o una valutazione medica. In caso di dolore, sintomi, gravidanza, malattie croniche o precedenti di disturbi alimentari, chiedi aiuto qualificato.",
+    "p3": "L'accesso Premium viene concesso solo dopo la conferma reale del pagamento tramite il processore di pagamento configurato.",
+    "back": "Torna a Forma"
+  },
+  "privacy": {
+    "kicker": "privacy",
+    "title": "Informativa sulla privacy",
+    "p1": "Forma salva i dati necessari per l'account: nome, email, password con hash, profilo, pasti, piani, progressi e stato dell'abbonamento.",
+    "p2": "Le chiavi API e i segreti di pagamento restano sul server. L'accesso Premium è verificato tramite un webhook firmato, non dallo stato di un pulsante nel browser.",
+    "p3": "L'utente può richiedere l'eliminazione dell'account dal profilo. Per la produzione, questa pagina deve essere completata con l'operatore legale, il periodo di conservazione e il contatto del responsabile dei dati.",
+    "back": "Torna a Forma"
   }
 }

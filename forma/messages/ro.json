@@ -123,5 +123,42 @@
     "afterSaving": "Dupa salvare, planul tau alimentar apare aici.",
     "gymPlan": "Plan sala",
     "meal": "Masa"
+  },
+  "brand": {
+    "tagline": "mancare, sala, progres"
+  },
+  "pwa": {
+    "installed": "Forma instalata",
+    "install": "Instaleaza app",
+    "iosHint": "iOS: Share, apoi Add to Home Screen"
+  },
+  "preview": {
+    "free": "Free",
+    "dashboardToday": "Dashboard azi",
+    "goodMorning": "Buna dimineata",
+    "caloriesLeft": "Calorii ramase",
+    "caloriesLeftHelper": "din 1.850 kcal",
+    "protein": "Proteine",
+    "proteinHelper": "tinta 125g",
+    "water": "Apa",
+    "waterHelper": "inca 900ml",
+    "coach": "Coach",
+    "coachText": "Mai ai loc pentru o cina bogata in proteine. Iti pot face 3 variante din ingredientele pe care le ai deja."
+  },
+  "terms": {
+    "kicker": "legal",
+    "title": "Termeni de utilizare",
+    "p1": "Forma este un instrument de organizare pentru nutritie, antrenamente si progres. Estimarile de calorii, macro-uri si recomandarile AI sunt orientative.",
+    "p2": "Aplicatia nu inlocuieste un medic, nutritionist, antrenor calificat sau evaluare medicala. Pentru durere, simptome, sarcina, boli cronice sau istoric de tulburari alimentare, cere ajutor calificat.",
+    "p3": "Accesul Premium se acorda doar dupa confirmarea reala a platii prin procesatorul de plati configurat.",
+    "back": "Inapoi la Forma"
+  },
+  "privacy": {
+    "kicker": "privacy",
+    "title": "Politica de confidentialitate",
+    "p1": "Forma salveaza datele necesare pentru cont: nume, email, parola hashuita, profil, mese, planuri, progres si status abonament.",
+    "p2": "Cheile API si secretele de plata raman pe server. Accesul Premium este verificat prin webhook semnat, nu prin starea unui buton din browser.",
+    "p3": "Utilizatorul poate cere stergerea contului din profil. Pentru productie, aceasta pagina trebuie completata cu operatorul legal, perioada de retentie si contactul responsabilului de date.",
+    "back": "Inapoi la Forma"
   }
 }

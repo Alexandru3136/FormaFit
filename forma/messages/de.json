@@ -123,5 +123,42 @@
     "afterSaving": "Nach dem Speichern erscheint dein Essensplan hier.",
     "gymPlan": "Trainingsplan",
     "meal": "Mahlzeit"
+  },
+  "brand": {
+    "tagline": "Essen, Training, Fortschritt"
+  },
+  "pwa": {
+    "installed": "Forma installiert",
+    "install": "App installieren",
+    "iosHint": "iOS: Teilen, dann Zum Home-Bildschirm"
+  },
+  "preview": {
+    "free": "Free",
+    "dashboardToday": "Dashboard heute",
+    "goodMorning": "Guten Morgen",
+    "caloriesLeft": "Kalorien übrig",
+    "caloriesLeftHelper": "von 1.850 kcal",
+    "protein": "Protein",
+    "proteinHelper": "Ziel 125g",
+    "water": "Wasser",
+    "waterHelper": "noch 900ml",
+    "coach": "Coach",
+    "coachText": "Du hast noch Platz für ein proteinreiches Abendessen. Ich kann dir 3 Optionen aus den Zutaten machen, die du schon hast."
+  },
+  "terms": {
+    "kicker": "rechtliches",
+    "title": "Nutzungsbedingungen",
+    "p1": "Forma ist ein Organisationstool für Ernährung, Training und Fortschritt. Kalorienschätzungen, Makros und KI-Empfehlungen sind Richtwerte.",
+    "p2": "Die App ersetzt keinen Arzt, Ernährungsberater, qualifizierten Trainer oder eine medizinische Untersuchung. Bei Schmerzen, Symptomen, Schwangerschaft, chronischen Krankheiten oder einer Vorgeschichte von Essstörungen hole dir qualifizierte Hilfe.",
+    "p3": "Premium-Zugang wird nur nach echter Zahlungsbestätigung über den konfigurierten Zahlungsdienstleister gewährt.",
+    "back": "Zurück zu Forma"
+  },
+  "privacy": {
+    "kicker": "datenschutz",
+    "title": "Datenschutzrichtlinie",
+    "p1": "Forma speichert die für das Konto nötigen Daten: Name, E-Mail, gehashtes Passwort, Profil, Mahlzeiten, Pläne, Fortschritt und Abo-Status.",
+    "p2": "API-Schlüssel und Zahlungsgeheimnisse bleiben auf dem Server. Der Premium-Zugang wird über einen signierten Webhook verifiziert, nicht über den Zustand eines Buttons im Browser.",
+    "p3": "Nutzer können die Kontolöschung im Profil anfordern. Für die Produktion muss diese Seite mit dem rechtlichen Betreiber, der Aufbewahrungsfrist und dem Kontakt des Datenverantwortlichen ergänzt werden.",
+    "back": "Zurück zu Forma"
   }
 }
