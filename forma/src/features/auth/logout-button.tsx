@@ -1,11 +1,16 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 type LogoutButtonProps = {
   className?: string;
   label?: string;
 };
 
-export function LogoutButton({ className, label = "Iesi din cont" }: LogoutButtonProps) {
+export function LogoutButton({ className, label }: LogoutButtonProps) {
+  const t = useTranslations("common");
+  const resolvedLabel = label ?? t("logout");
+
   async function handleLogout() {
     await fetch("/api/auth/logout", {
       method: "POST",
@@ -23,7 +28,7 @@ export function LogoutButton({ className, label = "Iesi din cont" }: LogoutButto
       onClick={handleLogout}
       type="button"
     >
-      {label}
+      {resolvedLabel}
     </button>
   );
 }

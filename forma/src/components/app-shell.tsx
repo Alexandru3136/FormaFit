@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { BrandMark } from "@/components/brand-mark";
 import { PwaInstallButton } from "@/components/pwa-install-button";
 import {
@@ -14,7 +15,9 @@ type AppShellProps = {
   kicker: string;
 };
 
-export function AppShell({ children, title, kicker }: AppShellProps) {
+export async function AppShell({ children, title, kicker }: AppShellProps) {
+  const t = await getTranslations("common");
+
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#f7f7f2] pb-24 text-[#181a1f] xl:pb-0">
       <div className="mx-auto grid w-full max-w-7xl gap-5 px-3 py-3 sm:px-5 sm:py-5 xl:grid-cols-[240px_minmax(0,1fr)] xl:gap-6 xl:px-8">
@@ -47,7 +50,7 @@ export function AppShell({ children, title, kicker }: AppShellProps) {
               className="hidden rounded-lg bg-[#15171d] px-4 py-3 text-sm font-black text-white sm:inline-flex"
               href="/dashboard"
             >
-              Start
+              {t("start")}
             </Link>
             <div className="hidden items-center gap-3 sm:flex">
               <PreferencesControls />

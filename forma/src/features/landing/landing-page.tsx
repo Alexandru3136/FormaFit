@@ -3,79 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 import { ActionButton } from "@/components/action-button";
 import { BrandMark } from "@/components/brand-mark";
 import { MobilePreview } from "@/components/mobile-preview";
 import { PwaInstallButton } from "@/components/pwa-install-button";
 import { SectionTitle } from "@/components/section-title";
 import { PreferencesControls } from "@/features/preferences/app-preferences";
-
-const heroActions = [
-  { href: "/register", label: "Incepe gratuit", tone: "lime" as const },
-  { href: "/login", label: "Am deja cont", tone: "dark" as const },
-];
-
-const productFlow = [
-  {
-    step: "01",
-    title: "Profil real",
-    body: "Greutate, obiectiv, activitate si zile disponibile. Forma nu ghiceste programul tau.",
-  },
-  {
-    step: "02",
-    title: "Decizii zilnice",
-    body: "Calorii, mese, antrenament si urmatorul pas sunt legate de acelasi profil.",
-  },
-  {
-    step: "03",
-    title: "AI cu context",
-    body: "Coach-ul raspunde pe profilul tau, iar Premium poate pastra memorie de progres.",
-  },
-];
-
-const nutritionCards = [
-  {
-    title: "Idei din ce ai acasa",
-    meta: "AI pe ingrediente",
-    body: "Scrii produsele, primesti variante potrivite cu targetul tau.",
-  },
-  {
-    title: "Estimare masa",
-    meta: "Text sau poza",
-    body: "Free estimeaza din text. Premium poate analiza si fotografia.",
-  },
-  {
-    title: "Plan 3/7 zile",
-    meta: "Premium",
-    body: "Un plan alimentar coerent, nu idei aruncate separat.",
-  },
-];
-
-const workoutImages = [
-  {
-    src: "/exercises/dumbbell-press.png",
-    title: "Upper",
-    body: "Piept, spate, umeri si brate.",
-  },
-  {
-    src: "/exercises/squat.png",
-    title: "Lower",
-    body: "Picioare, fesieri si trunchi.",
-  },
-  {
-    src: "/exercises/plank.png",
-    title: "Core",
-    body: "Stabilitate si control.",
-  },
-];
-
-const premiumItems = [
-  "Coach AI cu memorie",
-  "Plan alimentar 3/7 zile",
-  "Raport saptamanal",
-  "Analiza poza cu mancare",
-  "Notificari personalizate",
-];
 
 function AnimatedBackdrop() {
   return (
@@ -141,6 +75,42 @@ function AnimatedBackdrop() {
 }
 
 export function LandingPage() {
+  const t = useTranslations("landing");
+  const tc = useTranslations("common");
+
+  const heroActions = [
+    { href: "/register", label: t("ctaStartFree"), tone: "lime" as const },
+    { href: "/login", label: t("ctaHaveAccount"), tone: "dark" as const },
+  ];
+
+  const productFlow = [
+    { step: "01", title: t("flow.step1Title"), body: t("flow.step1Body") },
+    { step: "02", title: t("flow.step2Title"), body: t("flow.step2Body") },
+    { step: "03", title: t("flow.step3Title"), body: t("flow.step3Body") },
+  ];
+
+  const nutritionCards = [
+    { title: t("nutritionCard1Title"), meta: t("nutritionCard1Meta"), body: t("nutritionCard1Body") },
+    { title: t("nutritionCard2Title"), meta: t("nutritionCard2Meta"), body: t("nutritionCard2Body") },
+    { title: t("nutritionCard3Title"), meta: t("nutritionCard3Meta"), body: t("nutritionCard3Body") },
+  ];
+
+  const workoutImages = [
+    { src: "/exercises/dumbbell-press.png", title: t("workoutUpperTitle"), body: t("workoutUpperBody") },
+    { src: "/exercises/squat.png", title: t("workoutLowerTitle"), body: t("workoutLowerBody") },
+    { src: "/exercises/plank.png", title: t("workoutCoreTitle"), body: t("workoutCoreBody") },
+  ];
+
+  const badges = [t("badgeFreeAi"), t("badgePwa"), t("badgePremium")];
+
+  const premiumItems = [
+    t("premiumItem1"),
+    t("premiumItem2"),
+    t("premiumItem3"),
+    t("premiumItem4"),
+    t("premiumItem5"),
+  ];
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#f7f7f2] text-[#181a1f]">
       <AnimatedBackdrop />
@@ -153,13 +123,13 @@ export function LandingPage() {
               className="rounded-lg border border-[#ded9c8] px-3 py-2 text-xs font-black text-[#101211] sm:text-sm"
               href="/pricing"
             >
-              Planuri
+              {tc("plans")}
             </Link>
             <Link
               className="rounded-lg bg-[#15171d] px-3 py-2 text-xs font-black text-white transition hover:bg-[#252832] sm:px-4 sm:text-sm"
               href="/register"
             >
-              Cont
+              {tc("account")}
             </Link>
           </div>
         </header>
@@ -167,16 +137,15 @@ export function LandingPage() {
         <div className="grid min-h-[auto] gap-8 pt-4 sm:pt-8 lg:min-h-[calc(100vh-120px)] lg:grid-cols-[1fr_440px] lg:items-center lg:pt-0">
           <section className="max-w-3xl pt-2 opacity-100 sm:pt-8">
             <p className="text-sm font-black uppercase tracking-[0.22em] text-[#527b20]">
-              AI fitness coach
+              {t("eyebrow")}
             </p>
             <h1
               className="mt-5 text-[3rem] font-black leading-[0.92] text-[#0f1117] sm:mt-6 sm:text-6xl lg:text-7xl"
             >
-              Forma ta, condusa de un coach AI.
+              {t("heroTitle")}
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-[#5f665c] sm:text-xl">
-              Profil, mese, sala si progres intr-un flux simplu: intrebi, ajustezi,
-              salvezi si revii fara haos.
+              {t("heroBody")}
             </p>
 
             <div className="mt-8 grid gap-3 sm:max-w-xl sm:grid-cols-2">
@@ -188,7 +157,7 @@ export function LandingPage() {
             </div>
 
             <div className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-3">
-              {["2 free AI/zi", "PWA mobile", "Premium real"].map((item) => (
+              {badges.map((item) => (
                 <div
                   className="rounded-lg border border-[#ded9c8] bg-white p-3 text-sm font-black text-[#123f31] shadow-sm"
                   key={item}
@@ -231,9 +200,9 @@ export function LandingPage() {
         <section className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <div>
             <SectionTitle
-              body="Free primeste idei limitate si utile. Premium merge mai departe: planuri coerente si analiza mai bogata."
-              eyebrow="nutritie"
-              title="Mesele incep cu ce ai deja."
+              body={t("nutritionBody")}
+              eyebrow={t("nutritionEyebrow")}
+              title={t("nutritionTitle")}
             />
           </div>
 
@@ -254,9 +223,9 @@ export function LandingPage() {
         <section className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
           <div>
             <SectionTitle
-              body="Userul alege zilele disponibile, iar Forma aseaza antrenamentele in programul lui. Nu mai punem zile consecutive aiurea."
-              eyebrow="sala"
-              title="Planul se muleaza pe saptamana ta."
+              body={t("workoutsBody")}
+              eyebrow={t("workoutsEyebrow")}
+              title={t("workoutsTitle")}
             />
           </div>
 
@@ -267,7 +236,7 @@ export function LandingPage() {
                 key={item.title}
               >
                 <Image
-                  alt={`Exercitiu ${item.title}`}
+                  alt={t("workoutImageAlt", { name: item.title })}
                   className="h-44 w-full object-cover"
                   height={720}
                   src={item.src}
@@ -288,15 +257,14 @@ export function LandingPage() {
           <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.18em] text-[#c8ff55]">
-                premium
+                {t("premiumEyebrow")}
               </p>
-              <h2 className="mt-3 text-3xl font-black">Mai mult context, mai putine clickuri.</h2>
+              <h2 className="mt-3 text-3xl font-black">{t("premiumTitle")}</h2>
               <p className="mt-4 text-base leading-7 text-[#d9dfd3]">
-                Premium ramane ascuns pentru Free si se deblocheaza doar dupa plata
-                confirmata prin webhook.
+                {t("premiumBody")}
               </p>
               <div className="mt-5">
-                <ActionButton href="/pricing" label="Vezi abonamentul" tone="lime" />
+                <ActionButton href="/pricing" label={t("premiumCta")} tone="lime" />
               </div>
             </div>
 
@@ -314,8 +282,8 @@ export function LandingPage() {
         </section>
 
         <footer className="flex flex-wrap gap-4 border-t border-[#ded9c8] pt-6 text-sm font-black text-[#4d554b]">
-          <Link href="/terms">Termeni</Link>
-          <Link href="/privacy">Privacy</Link>
+          <Link href="/terms">{t("footerTerms")}</Link>
+          <Link href="/privacy">{t("footerPrivacy")}</Link>
         </footer>
       </section>
     </main>

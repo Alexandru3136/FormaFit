@@ -1,3 +1,4 @@
+import { getLocale, getTranslations } from "next-intl/server";
 import { AppShell } from "@/components/app-shell";
 import { MetricTile } from "@/components/metric-tile";
 import { calculateTargets } from "@/features/nutrition/calorie-calculator";
@@ -83,6 +84,8 @@ export default async function DashboardPage() {
     redirect("/onboarding");
   }
 
+  const t = await getTranslations("dashboard");
+  const locale = await getLocale();
   const targets = calculateTargets(profile);
   const { end: todayEnd, start: todayStart } = getTodayWindow();
   const [todayMeals, activeMealPlan, completedWorkoutsThisWeek] = await Promise.all([
@@ -129,18 +132,18 @@ export default async function DashboardPage() {
     targets.proteinGrams > 0 ? (consumed.proteinGrams / targets.proteinGrams) * 100 : 0;
   const dailyStats = [
     {
-      helper: `din ${targets.calories.toLocaleString("ro-RO")} kcal`,
-      label: "Consumate azi",
-      value: consumed.calories.toLocaleString("ro-RO"),
+      helper: t("ofKcal", { calories: targets.calories.toLocaleString(locale) }),
+      label: t("consumedToday"),
+      value: consumed.calories.toLocaleString(locale),
     },
     {
-      helper: `tinta ${targets.proteinGrams}g`,
-      label: "Proteine",
+      helper: t("targetProtein", { grams: targets.proteinGrams }),
+      label: t("protein"),
       value: `${consumed.proteinGrams}g`,
     },
     {
-      helper: `din ${profile.trainingDaysPerWeek} planificate`,
-      label: "Sala saptamana",
+      helper: t("ofPlanned", { count: profile.trainingDaysPerWeek }),
+      label: t("gymWeek"),
       value: String(completedWorkoutsThisWeek),
     },
   ];
@@ -148,7 +151,7 @@ export default async function DashboardPage() {
   const activeMealPlanDays = activeMealPlan ? readActiveMealPlanDays(activeMealPlan.planJson) : [];
 
   return (
-    <AppShell kicker="dashboard" title={`Salut, ${user.name}`}>
+    <AppShell kicker={t("kicker")} title={t("greeting", { name: user.name })}>
       <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
         <section className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
           {dailyStats.map((stat) => (
@@ -167,21 +170,25 @@ export default async function DashboardPage() {
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.18em] text-[#527b20]">
-              progres azi
+              {t("progressToday")}
             </p>
             <h2 className="mt-2 text-2xl font-black">
-              {remainingCalories.toLocaleString("ro-RO")} kcal ramase
+              {t("kcalLeft", { calories: remainingCalories.toLocaleString(locale) })}
             </h2>
             <p className="mt-2 text-sm font-semibold leading-6 text-[#62695f]">
-              Ai salvat {todayMeals.length} mese azi: {consumed.proteinGrams}g proteine,{" "}
-              {consumed.carbGrams}g carbohidrati, {consumed.fatGrams}g grasimi.
+              {t("savedMeals", {
+                meals: todayMeals.length,
+                protein: consumed.proteinGrams,
+                carbs: consumed.carbGrams,
+                fat: consumed.fatGrams,
+              })}
             </p>
           </div>
           <Link
             className="min-h-12 rounded-lg bg-[#c8ff55] px-4 py-3 text-center text-sm font-black text-[#101211]"
             href="/nutrition"
           >
-            Adauga masa
+            {t("addMeal")}
           </Link>
         </div>
 
@@ -195,7 +202,7 @@ export default async function DashboardPage() {
             <div className="grid h-[72%] w-[72%] place-items-center rounded-full bg-white text-center">
               <div>
                 <p className="text-3xl font-black">{formatPercent(calorieProgress)}</p>
-                <p className="text-xs font-black text-[#62695f]">calorii</p>
+                <p className="text-xs font-black text-[#62695f]">{t("calories")}</p>
               </div>
             </div>
           </div>
@@ -203,7 +210,7 @@ export default async function DashboardPage() {
           <div className="grid gap-3">
             <div>
               <div className="flex justify-between text-sm font-black">
-                <span>Calorii</span>
+                <span>{t("calories")}</span>
                 <span>{consumed.calories} / {targets.calories}</span>
               </div>
               <div className="mt-2 h-3 overflow-hidden rounded-full bg-[#f0eadb]">
@@ -212,7 +219,7 @@ export default async function DashboardPage() {
             </div>
             <div>
               <div className="flex justify-between text-sm font-black">
-                <span>Proteine</span>
+                <span>{t("protein")}</span>
                 <span>{consumed.proteinGrams}g / {targets.proteinGrams}g</span>
               </div>
               <div className="mt-2 h-3 overflow-hidden rounded-full bg-[#f0eadb]">
@@ -226,14 +233,14 @@ export default async function DashboardPage() {
       <div className="mt-4 grid gap-4 lg:grid-cols-2">
         <section className="rounded-lg border border-[#ded9c8] bg-white p-5 shadow-sm">
           <h2 className="text-xl font-black">
-            {activeMealPlan ? "Plan alimentar activ" : "Urmatoarea masa"}
+            {activeMealPlan ? t("activeMealPlan") : t("nextMeal")}
           </h2>
           {activeMealPlanDays.length > 0 ? (
             <Link
               className="mt-3 inline-flex rounded-lg border border-[#d8d2bf] bg-[#fbfaf4] px-3 py-2 text-sm font-black text-[#123f31]"
               href="/meal-plan"
             >
-              Vezi planul complet
+              {t("viewFullPlan")}
             </Link>
           ) : null}
           <div className="mt-4 grid gap-3">
@@ -244,18 +251,20 @@ export default async function DashboardPage() {
                   : [];
 
                 return (
-                  <div className="rounded-lg bg-[#fbfaf4] p-4" key={`${getText(day.label, "Zi")}-${index}`}>
+                  <div className="rounded-lg bg-[#fbfaf4] p-4" key={`${getText(day.label, t("dayNumber", { number: index + 1 }))}-${index}`}>
                     <p className="text-xs font-black uppercase tracking-[0.12em] text-[#527b20]">
-                      {getText(day.label, `Ziua ${index + 1}`)}
+                      {getText(day.label, t("dayNumber", { number: index + 1 }))}
                     </p>
                     <p className="mt-2 font-black">
-                      {getNumber(day.calories).toLocaleString("ro-RO")} kcal -{" "}
-                      {getNumber(day.proteinGrams)}g proteine
+                      {t("dayCaloriesProtein", {
+                        calories: getNumber(day.calories).toLocaleString(locale),
+                        protein: getNumber(day.proteinGrams),
+                      })}
                     </p>
                     <p className="mt-2 text-sm text-[#656b62]">
                       {meals
                         .slice(0, 3)
-                        .map((meal) => getText(meal.name, "Masa"))
+                        .map((meal) => getText(meal.name, t("meal")))
                         .join(" / ")}
                     </p>
                   </div>
@@ -263,10 +272,10 @@ export default async function DashboardPage() {
               })
             ) : (
               <div className="rounded-lg bg-[#fbfaf4] p-4">
-                <p className="text-sm font-black text-[#527b20]">Fara plan activ</p>
-                <p className="mt-2 font-black">Genereaza un plan Premium</p>
+                <p className="text-sm font-black text-[#527b20]">{t("noPlan")}</p>
+                <p className="mt-2 font-black">{t("generatePremium")}</p>
                 <p className="text-sm text-[#656b62]">
-                  Dupa salvare, planul tau alimentar apare aici.
+                  {t("afterSaving")}
                 </p>
               </div>
             )}
@@ -274,7 +283,7 @@ export default async function DashboardPage() {
         </section>
 
         <section className="rounded-lg border border-[#ded9c8] bg-white p-5 shadow-sm">
-          <h2 className="text-xl font-black">Plan sala</h2>
+          <h2 className="text-xl font-black">{t("gymPlan")}</h2>
           <div className="mt-4 grid gap-3">
             {workoutPlan.map((day) => (
               <div className="rounded-lg bg-[#fbfaf4] p-4" key={day.day}>

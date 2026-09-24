@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 type AuthMode = "login" | "register";
 
@@ -9,6 +10,7 @@ type AuthFormProps = {
 };
 
 export function AuthForm({ mode }: AuthFormProps) {
+  const t = useTranslations("auth");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,17 +24,17 @@ export function AuthForm({ mode }: AuthFormProps) {
     const trimmedName = name.trim();
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
-      setStatus("Scrie un email valid.");
+      setStatus(t("invalidEmail"));
       return;
     }
 
     if (mode === "register" && trimmedName.length < 2) {
-      setStatus("Numele trebuie sa aiba cel putin 2 caractere.");
+      setStatus(t("nameMin"));
       return;
     }
 
     if (mode === "register" && password.length < 10) {
-      setStatus("Parola trebuie sa aiba cel putin 10 caractere.");
+      setStatus(t("passwordMin"));
       return;
     }
 
@@ -55,12 +57,12 @@ export function AuthForm({ mode }: AuthFormProps) {
       const payload = (await response.json()) as { error?: string };
 
       if (!response.ok) {
-        throw new Error(payload.error ?? "Autentificarea a esuat.");
+        throw new Error(payload.error ?? t("authFailed"));
       }
 
       window.location.href = mode === "register" ? "/onboarding" : "/dashboard";
     } catch (error) {
-      setStatus(error instanceof Error ? error.message : "Eroare necunoscuta.");
+      setStatus(error instanceof Error ? error.message : t("unknownError"));
     } finally {
       setIsLoading(false);
     }
@@ -72,16 +74,16 @@ export function AuthForm({ mode }: AuthFormProps) {
       onSubmit={submitForm}
     >
       <h1 className="text-3xl font-black">
-        {mode === "register" ? "Creeaza cont" : "Intra in cont"}
+        {mode === "register" ? t("registerTitle") : t("loginTitle")}
       </h1>
       <p className="mt-2 text-sm leading-6 text-[#62695f]">
-        Contul va proteja profilul, istoricul meselor, planurile si accesul Premium.
+        {t("subtitle")}
       </p>
 
       <div className="mt-5 grid gap-4">
         {mode === "register" ? (
           <label className="block">
-            <span className="text-sm font-black text-[#535b50]">Nume</span>
+            <span className="text-sm font-black text-[#535b50]">{t("name")}</span>
             <input
               autoComplete="name"
               className="mt-2 h-12 w-full rounded-lg border border-[#d8d2bf] bg-[#fbfaf4] px-4 text-base font-bold outline-none focus:border-[#123f31]"
@@ -94,7 +96,7 @@ export function AuthForm({ mode }: AuthFormProps) {
         ) : null}
 
         <label className="block">
-          <span className="text-sm font-black text-[#535b50]">Email</span>
+          <span className="text-sm font-black text-[#535b50]">{t("email")}</span>
           <input
             autoCapitalize="none"
             autoComplete="email"
@@ -108,7 +110,7 @@ export function AuthForm({ mode }: AuthFormProps) {
         </label>
 
         <label className="block">
-          <span className="text-sm font-black text-[#535b50]">Parola</span>
+          <span className="text-sm font-black text-[#535b50]">{t("password")}</span>
           <div className="mt-2 flex overflow-hidden rounded-lg border border-[#d8d2bf] bg-[#fbfaf4] focus-within:border-[#123f31]">
             <input
               autoComplete={mode === "register" ? "new-password" : "current-password"}
@@ -123,12 +125,12 @@ export function AuthForm({ mode }: AuthFormProps) {
               onClick={() => setShowPassword((current) => !current)}
               type="button"
             >
-              {showPassword ? "Ascunde" : "Arata"}
+              {showPassword ? t("hide") : t("show")}
             </button>
           </div>
           {mode === "register" ? (
             <p className="mt-2 text-xs font-semibold leading-5 text-[#62695f]">
-              Minim 10 caractere pentru cont nou.
+              {t("minPassword")}
             </p>
           ) : null}
         </label>
@@ -148,7 +150,7 @@ export function AuthForm({ mode }: AuthFormProps) {
         disabled={isLoading}
         type="submit"
       >
-        {isLoading ? "Se verifica..." : mode === "register" ? "Creeaza cont" : "Login"}
+        {isLoading ? t("checking") : mode === "register" ? t("createAccount") : t("login")}
       </button>
     </form>
   );
