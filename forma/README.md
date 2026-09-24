@@ -8,7 +8,7 @@ Forma este un MVP web/PWA pentru nutritie, sala, progres si coach AI.
 - React
 - TypeScript
 - Prisma
-- SQLite pentru dezvoltare locala
+- PostgreSQL (Neon) pentru dezvoltare si productie
 - Stripe pentru abonamente
 - OmniRoute pentru functii AI
 - PWA manifest + service worker
@@ -17,18 +17,26 @@ Forma este un MVP web/PWA pentru nutritie, sala, progres si coach AI.
 
 ```bash
 npm.cmd install
-npm.cmd run db:init
-npx.cmd prisma generate
+npm.cmd run db:migrate
 npm.cmd run dev -- -p 3001
 ```
 
+`npm run db:migrate` aplica migratiile Prisma pe baza Neon si genereaza clientul.
 Aplicatia ruleaza la `http://localhost:3001`.
+
+## Baza de date
+
+- Provider: PostgreSQL, gazduit pe Neon.
+- Migratiile traiesc in `prisma/migrations/` si se aplica cu `npm run db:migrate` (dev) sau `npm run db:deploy` (productie/CI).
+- `DATABASE_URL` foloseste conexiunea *pooled* (rulare app); `DIRECT_URL` foloseste conexiunea directa (migratii).
+- `npm run db:studio` deschide Prisma Studio pentru inspectie.
 
 ## Environment
 
 Porneste de la `.env.example` si configureaza:
 
-- `DATABASE_URL`
+- `DATABASE_URL` (Neon pooled connection)
+- `DIRECT_URL` (Neon direct connection, pentru migratii)
 - `SESSION_SECRET`
 - `OMNIROUTE_BASE_URL`
 - `OMNIROUTE_API_KEY`
@@ -59,8 +67,6 @@ Nu pune chei reale in repository.
 
 ## Ce mai trebuie pentru productie
 
-- DB production, de exemplu Postgres
-- migratii Prisma reale, nu doar script local
 - resetare parola si email verification
 - CSRF/rate limiting intarit
 - Web Push sender cu VAPID si scheduler
