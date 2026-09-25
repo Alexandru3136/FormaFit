@@ -160,5 +160,146 @@
     "p2": "Les clés API et les secrets de paiement restent sur le serveur. L'accès Premium est vérifié via un webhook signé, pas par l'état d'un bouton dans le navigateur.",
     "p3": "L'utilisateur peut demander la suppression du compte depuis son profil. Pour la production, cette page doit être complétée avec l'opérateur légal, la durée de conservation et le contact du responsable des données.",
     "back": "Retour à Forma"
+  },
+  "pages": {
+    "nutritionKicker": "nutrition",
+    "nutritionTitle": "Repas et calories",
+    "workoutsKicker": "entraînements",
+    "workoutsTitle": "Ton plan sport",
+    "coachKicker": "coach ia",
+    "coachTitle": "Coach Forma",
+    "mealPlanKicker": "plan repas",
+    "mealPlanTitle": "Ton plan actif",
+    "profileKicker": "profil",
+    "profileTitle": "Profil et objectifs",
+    "onboardingKicker": "profil initial",
+    "onboardingTitle": "Dis-nous ton objectif",
+    "notificationsKicker": "notifications",
+    "notificationsTitle": "Ton bienveillant, sans pression",
+    "premiumKicker": "premium",
+    "premiumTitle": "Outils Premium"
+  },
+  "nutritionPage": {
+    "disclaimer": "Les estimations de calories et de macros sont indicatives. Forma ne remplace pas un médecin, un nutritionniste ou un coach qualifié."
+  },
+  "mealPlan": {
+    "noPlanKicker": "aucun plan actif",
+    "noPlanTitle": "Génère ton premier plan repas",
+    "noPlanBody": "Les plans Premium enregistrés apparaissent ici par jour, avec repas, ingrédients et objectifs approximatifs.",
+    "goPremium": "Aller à Premium",
+    "activePlan": "Plan actif",
+    "daysCount": "{count} jours",
+    "validUntil": "Valable jusqu'au {date}.",
+    "generateAnother": "Générer un autre plan",
+    "dayNumber": "Jour {number}",
+    "kcal": "{calories} kcal",
+    "proteinGrams": "{grams}g de protéines",
+    "mealNumber": "Repas {number}",
+    "notesFallback": "Ajuste les portions selon la faim et les progrès."
+  },
+  "notifications": {
+    "intro": "Ces modèles seront utilisés par le moteur de notifications. L'utilisateur pourra choisir la fréquence : douce, normale ou ambitieuse.",
+    "templates": {
+      "day-1-check-in": { "title": "Journée chargée ?", "body": "Tu as 30 secondes pour un point rapide ? On peut noter juste le repas principal et continuer de là." },
+      "day-2-encourage": { "title": "Un petit pas suffit", "body": "Pas besoin de tout rattraper. Choisis un bon repas aujourd'hui et reviens dans le rythme." },
+      "day-3-reset": { "title": "Repartons sans pression", "body": "On fait un redémarrage en douceur ? Je te prépare un plan simple pour aujourd'hui." },
+      "subscription-renewal": { "title": "Rappel d'abonnement", "body": "Premium se renouvelle bientôt. L'accès n'est conservé que si le paiement est confirmé par Stripe." },
+      "monthly-profile-update": { "title": "Mise à jour rapide du profil", "body": "Près d'un mois s'est écoulé. Vérifie ton poids, ton objectif et tes jours disponibles pour que le plan reste réaliste." }
+    }
+  },
+  "push": {
+    "kicker": "PWA push",
+    "title": "Notifications sur l'appareil",
+    "checkingSupport": "Vérification du support des notifications...",
+    "unsupported": "Ce navigateur ne prend pas en charge les notifications push PWA.",
+    "activeOnDevices": "Les notifications sont actives sur {count} appareil(s).",
+    "notActive": "Les notifications ne sont pas actives sur ce compte.",
+    "couldNotCheck": "Impossible de vérifier les notifications.",
+    "requesting": "Demande de permission pour les notifications...",
+    "notAllowed": "Les notifications n'ont pas été autorisées.",
+    "saveFailed": "L'abonnement n'a pas pu être enregistré.",
+    "enabledDevice": "Les notifications sont activées pour cet appareil.",
+    "enableFailed": "Impossible d'activer les notifications.",
+    "missingVapid": "Pour un push réel, la clé publique VAPID doit être configurée dans NEXT_PUBLIC_VAPID_PUBLIC_KEY et la clé privée sur le serveur.",
+    "enabling": "Activation...",
+    "enable": "Activer les notifications"
+  },
+  "billing": {
+    "preparing": "Préparation du paiement...",
+    "activatePremium": "Activer Premium",
+    "cannotStart": "Impossible de démarrer le paiement.",
+    "unknownError": "Erreur inconnue."
+  },
+  "profileSummary": {
+    "activeProfile": "Profil actif",
+    "nameGoal": "{name}, {goal}",
+    "targetLine": "Ton objectif est {calories} kcal. Pour aujourd'hui il te reste environ {caloriesLeft} kcal et {proteinLeft}g de protéines."
+  },
+  "goals": {
+    "lose": "Perte de poids",
+    "maintain": "Maintien",
+    "gain": "Prise de masse"
+  },
+  "activity": {
+    "sedentary": "Sédentaire",
+    "light": "Activité légère",
+    "moderate": "Activité modérée",
+    "active": "Actif",
+    "very-active": "Très actif"
+  },
+  "profilePage": {
+    "sessionKicker": "Compte connecté",
+    "sessionTitle": "Ta session",
+    "sessionBody": "Tu es connecté en tant que {email}. Tu peux te déconnecter à tout moment d'ici.",
+    "checkinKicker": "Point mensuel",
+    "checkinTitle": "Mets à jour tes données quand ton corps change",
+    "checkinBody": "Une fois par mois, Forma te rappellera de vérifier ton poids, ton objectif, ton niveau d'activité et tes jours disponibles pour le sport.",
+    "lastUpdate": "Dernière mise à jour : {date}",
+    "settingsTitle": "Réglages de l'app",
+    "settingsBody": "La langue, le thème et la déconnexion sont ici comme des actions intentionnelles."
+  },
+  "pricing": {
+    "dashboard": "Tableau de bord",
+    "kicker": "abonnement",
+    "title": "Choisis combien d'IA tu veux dans ta routine.",
+    "subtitle": "Free reste utile pour commencer. Premium ajoute des plans enregistrés, une analyse plus riche et une mémoire des progrès.",
+    "free": "Free",
+    "freePrice": "$0",
+    "freeDesc": "Pour démarrer et rester régulier.",
+    "freeFeature1": "Profil, calculateur de calories et macros",
+    "freeFeature2": "Journal alimentaire texte et estimation de repas",
+    "freeFeature3": "2 générations IA d'idées de repas / jour",
+    "freeFeature4": "Plan sport selon les jours disponibles",
+    "freeFeature5": "Coach IA basique",
+    "startFree": "Commencer gratuitement",
+    "continueFree": "Continuer avec Free",
+    "premium": "Premium",
+    "premiumPrice": "$9.99",
+    "perMonth": "par mois",
+    "statusActive": "Actif",
+    "statusUpgrade": "Passer à",
+    "premiumFeature1": "Coach IA avec mémoire",
+    "premiumFeature2": "Plan repas 3/7 jours",
+    "premiumFeature3": "Rapport hebdomadaire",
+    "premiumFeature4": "Analyse photo repas",
+    "premiumFeature5": "Notifications personnalisées",
+    "openPremium": "Ouvrir Premium",
+    "createForPremium": "Créer un compte pour Premium",
+    "webhookNotice": "Le paiement seul ne débloque pas l'accès dans l'UI. Forma attend une confirmation réelle du webhook Stripe signé ; ce n'est qu'ensuite que le statut d'abonnement devient ACTIVE/TRIALING et que les fonctions Premium se débloquent.",
+    "home": "Accueil"
+  },
+  "admin": {
+    "accessTitle": "Admin",
+    "accessDenied": "Admin access required.",
+    "kicker": "console interne",
+    "title": "Admin Forma",
+    "users": "Utilisateurs",
+    "premiumActive": "Premium actif",
+    "mealsSaved": "Repas enregistrés",
+    "activePlans": "Plans actifs",
+    "workoutsLogged": "Entraînements enregistrés",
+    "pushDevices": "Appareils push",
+    "recentAudit": "Audit récent",
+    "noAudit": "Aucune action auditée pour l'instant."
   }
 }

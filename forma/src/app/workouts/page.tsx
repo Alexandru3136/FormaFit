@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { AppShell } from "@/components/app-shell";
 import { WorkoutBrowser } from "@/features/workouts/workout-browser";
 import { buildWorkoutPlan } from "@/features/workouts/workout-planner";
@@ -29,9 +30,10 @@ export default async function WorkoutsPage() {
   }
 
   const workoutPlan = buildWorkoutPlan(profile);
+  const tp = await getTranslations("pages");
 
   return (
-    <AppShell kicker="antrenamente" title="Planul tau de sala">
+    <AppShell kicker={tp("workoutsKicker")} title={tp("workoutsTitle")}>
       <WorkoutBrowser plan={workoutPlan} trainingDaysPerWeek={profile.trainingDaysPerWeek} />
     </AppShell>
   );

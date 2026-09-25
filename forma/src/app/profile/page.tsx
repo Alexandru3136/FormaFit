@@ -1,3 +1,4 @@
+import { getLocale, getTranslations } from "next-intl/server";
 import { AppShell } from "@/components/app-shell";
 import { LogoutButton } from "@/features/auth/logout-button";
 import { AccountSettings } from "@/features/account/account-settings";
@@ -29,16 +30,19 @@ export default async function ProfilePage() {
     ? toUserProfile(userWithProfile) ?? { ...defaultProfile, name: user.name }
     : { ...defaultProfile, name: user.name };
   const updatedAt = userWithProfile?.profile?.updatedAt;
+  const tp = await getTranslations("pages");
+  const t = await getTranslations("profilePage");
+  const locale = await getLocale();
 
   return (
-    <AppShell kicker="profil" title="Profil si tinte">
+    <AppShell kicker={tp("profileKicker")} title={tp("profileTitle")}>
       <section className="mb-4 rounded-lg border border-[#ded9c8] bg-white p-4 shadow-sm">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm font-black text-[#527b20]">Cont conectat</p>
-            <h2 className="mt-1 text-xl font-black">Sesiunea ta</h2>
+            <p className="text-sm font-black text-[#527b20]">{t("sessionKicker")}</p>
+            <h2 className="mt-1 text-xl font-black">{t("sessionTitle")}</h2>
             <p className="mt-1 text-sm font-semibold leading-6 text-[#62695f]">
-              Esti autentificat ca {user.email}. Poti iesi din cont oricand de aici.
+              {t("sessionBody", { email: user.email })}
             </p>
           </div>
           <LogoutButton className="rounded-lg bg-[#15171d] px-5 py-3 text-left text-sm font-black text-white transition hover:bg-[#0b0d10] sm:min-w-40 sm:text-center" />
@@ -46,19 +50,19 @@ export default async function ProfilePage() {
       </section>
 
       <div className="mb-4 rounded-lg border border-[#ded9c8] bg-white p-5 shadow-sm">
-        <p className="text-sm font-black text-[#527b20]">Check-in lunar</p>
-        <h2 className="mt-2 text-xl font-black">Actualizeaza datele cand corpul se schimba</h2>
+        <p className="text-sm font-black text-[#527b20]">{t("checkinKicker")}</p>
+        <h2 className="mt-2 text-xl font-black">{t("checkinTitle")}</h2>
         <p className="mt-2 text-sm font-semibold leading-6 text-[#62695f]">
-          O data pe luna Forma iti va aminti sa verifici greutatea, obiectivul,
-          nivelul de activitate si zilele disponibile pentru sala.
+          {t("checkinBody")}
         </p>
         {updatedAt ? (
           <p className="mt-3 text-sm font-black text-[#101211]">
-            Ultimul update:{" "}
-            {updatedAt.toLocaleDateString("ro-RO", {
-              day: "2-digit",
-              month: "long",
-              year: "numeric",
+            {t("lastUpdate", {
+              date: updatedAt.toLocaleDateString(locale, {
+                day: "2-digit",
+                month: "long",
+                year: "numeric",
+              }),
             })}
           </p>
         ) : null}
@@ -68,9 +72,9 @@ export default async function ProfilePage() {
       <section className="mt-4 rounded-lg border border-[#ded9c8] bg-white p-5 shadow-sm">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-xl font-black">Setari aplicatie</h2>
+            <h2 className="text-xl font-black">{t("settingsTitle")}</h2>
             <p className="mt-2 text-sm font-semibold leading-6 text-[#62695f]">
-              Limba, tema si iesirea din cont sunt aici ca actiuni intentionate.
+              {t("settingsBody")}
             </p>
           </div>
           <PreferencesControls />

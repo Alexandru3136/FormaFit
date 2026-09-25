@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { AppShell } from "@/components/app-shell";
 import { FoodLogPanel } from "@/features/food-log/food-log-panel";
 import { MealIdeasPanel } from "@/features/nutrition/meal-ideas-panel";
@@ -28,12 +29,14 @@ export default async function NutritionPage() {
     redirect("/onboarding");
   }
 
+  const tp = await getTranslations("pages");
+  const t = await getTranslations("nutritionPage");
+
   return (
-    <AppShell kicker="nutritie" title="Mese si calorii">
+    <AppShell kicker={tp("nutritionKicker")} title={tp("nutritionTitle")}>
       <div className="grid gap-4">
         <div className="rounded-lg border border-[#d6c981] bg-[#fff7cc] p-4 text-sm font-semibold leading-6 text-[#5d531c]">
-          Estimarile de calorii si macro-uri sunt orientative. Forma nu inlocuieste
-          un medic, nutritionist sau antrenor calificat.
+          {t("disclaimer")}
         </div>
 
         <FoodLogPanel />

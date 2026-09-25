@@ -160,5 +160,146 @@
     "p2": "API keys and payment secrets stay on the server. Premium access is verified via a signed webhook, not by the state of a button in the browser.",
     "p3": "You can request account deletion from your profile. For production, this page must be completed with the legal operator, retention period, and data controller contact.",
     "back": "Back to Forma"
+  },
+  "pages": {
+    "nutritionKicker": "nutrition",
+    "nutritionTitle": "Meals and calories",
+    "workoutsKicker": "workouts",
+    "workoutsTitle": "Your gym plan",
+    "coachKicker": "ai coach",
+    "coachTitle": "Forma Coach",
+    "mealPlanKicker": "meal plan",
+    "mealPlanTitle": "Your active plan",
+    "profileKicker": "profile",
+    "profileTitle": "Profile and targets",
+    "onboardingKicker": "initial profile",
+    "onboardingTitle": "Tell us your goal",
+    "notificationsKicker": "notifications",
+    "notificationsTitle": "Friendly tone, no pressure",
+    "premiumKicker": "premium",
+    "premiumTitle": "Premium tools"
+  },
+  "nutritionPage": {
+    "disclaimer": "Calorie and macro estimates are indicative. Forma does not replace a doctor, nutritionist, or qualified trainer."
+  },
+  "mealPlan": {
+    "noPlanKicker": "no active plan",
+    "noPlanTitle": "Generate your first meal plan",
+    "noPlanBody": "Saved Premium plans appear here by day, with meals, ingredients, and approximate targets.",
+    "goPremium": "Go to Premium",
+    "activePlan": "Active plan",
+    "daysCount": "{count} days",
+    "validUntil": "Valid until {date}.",
+    "generateAnother": "Generate another plan",
+    "dayNumber": "Day {number}",
+    "kcal": "{calories} kcal",
+    "proteinGrams": "{grams}g protein",
+    "mealNumber": "Meal {number}",
+    "notesFallback": "Adjust portions to hunger and progress."
+  },
+  "notifications": {
+    "intro": "These templates will be used by the notification engine. Users will be able to choose the frequency: gentle, normal, or ambitious.",
+    "templates": {
+      "day-1-check-in": { "title": "Busy day?", "body": "Got 30 seconds for a check-in? We can log just the main meal and continue from there." },
+      "day-2-encourage": { "title": "A small step is enough", "body": "You don't have to catch up on everything. Pick one good meal today and get back in rhythm." },
+      "day-3-reset": { "title": "Let's reset without pressure", "body": "Shall we do a gentle restart? I'll prepare a simple plan for today." },
+      "subscription-renewal": { "title": "Subscription reminder", "body": "Premium renews soon. Access is kept only if payment is confirmed by Stripe." },
+      "monthly-profile-update": { "title": "Quick profile update", "body": "Almost a month has passed. Check your weight, goal, and available days so the plan stays realistic." }
+    }
+  },
+  "push": {
+    "kicker": "PWA push",
+    "title": "On-device notifications",
+    "checkingSupport": "Checking notification support...",
+    "unsupported": "This browser doesn't support PWA push notifications.",
+    "activeOnDevices": "Notifications are active on {count} device(s).",
+    "notActive": "Notifications are not active on this account.",
+    "couldNotCheck": "We couldn't check notifications.",
+    "requesting": "Requesting notification permission...",
+    "notAllowed": "Notifications were not allowed.",
+    "saveFailed": "Subscription could not be saved.",
+    "enabledDevice": "Notifications are enabled for this device.",
+    "enableFailed": "We couldn't enable notifications.",
+    "missingVapid": "For real push, the public VAPID key must be configured in NEXT_PUBLIC_VAPID_PUBLIC_KEY and the private key on the server.",
+    "enabling": "Enabling...",
+    "enable": "Enable notifications"
+  },
+  "billing": {
+    "preparing": "Preparing checkout...",
+    "activatePremium": "Activate Premium",
+    "cannotStart": "We couldn't start checkout.",
+    "unknownError": "Unknown error."
+  },
+  "profileSummary": {
+    "activeProfile": "Active profile",
+    "nameGoal": "{name}, {goal}",
+    "targetLine": "Your target is {calories} kcal. For today you have about {caloriesLeft} kcal and {proteinLeft}g protein left."
+  },
+  "goals": {
+    "lose": "Weight loss",
+    "maintain": "Maintenance",
+    "gain": "Muscle gain"
+  },
+  "activity": {
+    "sedentary": "Sedentary",
+    "light": "Light activity",
+    "moderate": "Moderate activity",
+    "active": "Active",
+    "very-active": "Very active"
+  },
+  "profilePage": {
+    "sessionKicker": "Connected account",
+    "sessionTitle": "Your session",
+    "sessionBody": "You are signed in as {email}. You can log out anytime from here.",
+    "checkinKicker": "Monthly check-in",
+    "checkinTitle": "Update your data when your body changes",
+    "checkinBody": "Once a month Forma will remind you to check your weight, goal, activity level, and available gym days.",
+    "lastUpdate": "Last update: {date}",
+    "settingsTitle": "App settings",
+    "settingsBody": "Language, theme, and logout are here as intentional actions."
+  },
+  "pricing": {
+    "dashboard": "Dashboard",
+    "kicker": "subscription",
+    "title": "Choose how much AI you want in your routine.",
+    "subtitle": "Free stays useful to start. Premium adds saved plans, richer analysis, and progress memory.",
+    "free": "Free",
+    "freePrice": "$0",
+    "freeDesc": "For starting and consistency.",
+    "freeFeature1": "Profile, calorie and macro calculator",
+    "freeFeature2": "Text food journal and meal estimate",
+    "freeFeature3": "2 AI meal-idea generations / day",
+    "freeFeature4": "Gym plan based on available days",
+    "freeFeature5": "Basic AI coach",
+    "startFree": "Start free",
+    "continueFree": "Continue with Free",
+    "premium": "Premium",
+    "premiumPrice": "$9.99",
+    "perMonth": "per month",
+    "statusActive": "Active",
+    "statusUpgrade": "Upgrade",
+    "premiumFeature1": "AI coach with memory",
+    "premiumFeature2": "3/7 day meal plan",
+    "premiumFeature3": "Weekly report",
+    "premiumFeature4": "Food photo analysis",
+    "premiumFeature5": "Personalized notifications",
+    "openPremium": "Open Premium",
+    "createForPremium": "Create an account for Premium",
+    "webhookNotice": "Payment alone doesn't unlock access in the UI. Forma waits for real confirmation from the signed Stripe webhook; only then does the subscription status become ACTIVE/TRIALING and Premium features unlock.",
+    "home": "Home"
+  },
+  "admin": {
+    "accessTitle": "Admin",
+    "accessDenied": "Admin access required.",
+    "kicker": "internal console",
+    "title": "Forma Admin",
+    "users": "Users",
+    "premiumActive": "Active Premium",
+    "mealsSaved": "Saved meals",
+    "activePlans": "Active plans",
+    "workoutsLogged": "Logged workouts",
+    "pushDevices": "Push devices",
+    "recentAudit": "Recent audit",
+    "noAudit": "No audited actions yet."
   }
 }

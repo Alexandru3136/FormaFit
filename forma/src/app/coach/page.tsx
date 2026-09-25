@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { AppShell } from "@/components/app-shell";
 import { CoachPanel } from "@/features/ai/coach-panel";
 import { db } from "@/lib/server/db";
@@ -24,8 +25,10 @@ export default async function CoachPage() {
     redirect("/onboarding");
   }
 
+  const tp = await getTranslations("pages");
+
   return (
-    <AppShell kicker="ai coach" title="Coach Forma">
+    <AppShell kicker={tp("coachKicker")} title={tp("coachTitle")}>
       <CoachPanel />
     </AppShell>
   );

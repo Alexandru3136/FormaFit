@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 export function BillingButton() {
+  const t = useTranslations("billing");
   const [status, setStatus] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -17,12 +19,12 @@ export function BillingButton() {
       const payload = (await response.json()) as { url?: string; error?: string };
 
       if (!response.ok || !payload.url) {
-        throw new Error(payload.error ?? "Nu am putut porni checkout-ul.");
+        throw new Error(payload.error ?? t("cannotStart"));
       }
 
       window.location.href = payload.url;
     } catch (error) {
-      setStatus(error instanceof Error ? error.message : "Eroare necunoscuta.");
+      setStatus(error instanceof Error ? error.message : t("unknownError"));
     } finally {
       setIsLoading(false);
     }
@@ -36,7 +38,7 @@ export function BillingButton() {
         onClick={startCheckout}
         type="button"
       >
-        {isLoading ? "Se pregateste checkout..." : "Activeaza Premium"}
+        {isLoading ? t("preparing") : t("activatePremium")}
       </button>
       {status ? <p className="mt-3 text-sm font-semibold text-[#ffeaa5]">{status}</p> : null}
     </div>

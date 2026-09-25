@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { AppShell } from "@/components/app-shell";
 import { defaultProfile } from "@/features/profile/profile";
 import { ProfileForm } from "@/features/profile/profile-form";
@@ -26,8 +27,10 @@ export default async function OnboardingPage() {
     ? toUserProfile(userWithProfile) ?? { ...defaultProfile, name: user.name }
     : { ...defaultProfile, name: user.name };
 
+  const tp = await getTranslations("pages");
+
   return (
-    <AppShell kicker="profil initial" title="Spune-ne tinta ta">
+    <AppShell kicker={tp("onboardingKicker")} title={tp("onboardingTitle")}>
       <ProfileForm initialProfile={profile} />
     </AppShell>
   );

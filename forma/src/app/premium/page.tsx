@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { AppShell } from "@/components/app-shell";
 import { PremiumHub } from "@/features/premium/premium-hub";
 import { hasPremiumAccess } from "@/lib/server/access";
@@ -17,8 +18,10 @@ export default async function PremiumPage() {
     redirect("/pricing?premium_required=1");
   }
 
+  const tp = await getTranslations("pages");
+
   return (
-    <AppShell kicker="premium" title="Instrumente Premium">
+    <AppShell kicker={tp("premiumKicker")} title={tp("premiumTitle")}>
       <PremiumHub />
     </AppShell>
   );

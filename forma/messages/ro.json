@@ -160,5 +160,146 @@
     "p2": "Cheile API si secretele de plata raman pe server. Accesul Premium este verificat prin webhook semnat, nu prin starea unui buton din browser.",
     "p3": "Utilizatorul poate cere stergerea contului din profil. Pentru productie, aceasta pagina trebuie completata cu operatorul legal, perioada de retentie si contactul responsabilului de date.",
     "back": "Inapoi la Forma"
+  },
+  "pages": {
+    "nutritionKicker": "nutritie",
+    "nutritionTitle": "Mese si calorii",
+    "workoutsKicker": "antrenamente",
+    "workoutsTitle": "Planul tau de sala",
+    "coachKicker": "ai coach",
+    "coachTitle": "Coach Forma",
+    "mealPlanKicker": "plan alimentar",
+    "mealPlanTitle": "Planul tau activ",
+    "profileKicker": "profil",
+    "profileTitle": "Profil si tinte",
+    "onboardingKicker": "profil initial",
+    "onboardingTitle": "Spune-ne tinta ta",
+    "notificationsKicker": "notificari",
+    "notificationsTitle": "Ton prietenos, nu presiune",
+    "premiumKicker": "premium",
+    "premiumTitle": "Instrumente Premium"
+  },
+  "nutritionPage": {
+    "disclaimer": "Estimarile de calorii si macro-uri sunt orientative. Forma nu inlocuieste un medic, nutritionist sau antrenor calificat."
+  },
+  "mealPlan": {
+    "noPlanKicker": "fara plan activ",
+    "noPlanTitle": "Genereaza primul plan alimentar",
+    "noPlanBody": "Planurile Premium salvate apar aici pe zile, cu mese, ingrediente si tinte aproximative.",
+    "goPremium": "Mergi la Premium",
+    "activePlan": "Plan activ",
+    "daysCount": "{count} zile",
+    "validUntil": "Valabil pana la {date}.",
+    "generateAnother": "Genereaza alt plan",
+    "dayNumber": "Ziua {number}",
+    "kcal": "{calories} kcal",
+    "proteinGrams": "{grams}g proteine",
+    "mealNumber": "Masa {number}",
+    "notesFallback": "Ajusteaza portiile dupa foame si progres."
+  },
+  "notifications": {
+    "intro": "Aceste template-uri vor fi folosite de engine-ul de notificari. Userul va putea alege frecventa: bland, normal sau ambitios.",
+    "templates": {
+      "day-1-check-in": { "title": "Zi aglomerata?", "body": "Ai 30 secunde pentru un check-in? Putem nota doar masa principala si continuam de acolo." },
+      "day-2-encourage": { "title": "Un pas mic e suficient", "body": "Nu trebuie sa recuperezi tot. Alege o masa buna azi si intram inapoi in ritm." },
+      "day-3-reset": { "title": "Hai sa resetam fara presiune", "body": "Facem un restart bland? Iti pregatesc un plan simplu pentru azi." },
+      "subscription-renewal": { "title": "Reminder abonament", "body": "Premium se reinnoieste curand. Accesul se pastreaza doar daca plata este confirmata de Stripe." },
+      "monthly-profile-update": { "title": "Update rapid de profil", "body": "A trecut aproape o luna. Verifica greutatea, obiectivul si zilele disponibile ca planul sa ramana realist." }
+    }
+  },
+  "push": {
+    "kicker": "PWA push",
+    "title": "Notificari pe dispozitiv",
+    "checkingSupport": "Verificam suportul pentru notificari...",
+    "unsupported": "Browserul acesta nu suporta notificari push PWA.",
+    "activeOnDevices": "Notificarile sunt active pe {count} dispozitiv(e).",
+    "notActive": "Notificarile nu sunt active pe acest cont.",
+    "couldNotCheck": "Nu am putut verifica notificarile.",
+    "requesting": "Cerem permisiunea pentru notificari...",
+    "notAllowed": "Notificarile nu au fost permise.",
+    "saveFailed": "Subscription nu a putut fi salvata.",
+    "enabledDevice": "Notificarile sunt activate pentru acest dispozitiv.",
+    "enableFailed": "Nu am putut activa notificarile.",
+    "missingVapid": "Pentru push real trebuie configurata cheia publica VAPID in NEXT_PUBLIC_VAPID_PUBLIC_KEY si cheia privata pe server.",
+    "enabling": "Se activeaza...",
+    "enable": "Activeaza notificari"
+  },
+  "billing": {
+    "preparing": "Se pregateste checkout...",
+    "activatePremium": "Activeaza Premium",
+    "cannotStart": "Nu am putut porni checkout-ul.",
+    "unknownError": "Eroare necunoscuta."
+  },
+  "profileSummary": {
+    "activeProfile": "Profil activ",
+    "nameGoal": "{name}, {goal}",
+    "targetLine": "Tinta ta este {calories} kcal. Pentru azi mai ai aproximativ {caloriesLeft} kcal si {proteinLeft}g proteine."
+  },
+  "goals": {
+    "lose": "Slabire",
+    "maintain": "Mentinere",
+    "gain": "Crestere masa"
+  },
+  "activity": {
+    "sedentary": "Sedentar",
+    "light": "Activitate usoara",
+    "moderate": "Activitate moderata",
+    "active": "Activ",
+    "very-active": "Foarte activ"
+  },
+  "profilePage": {
+    "sessionKicker": "Cont conectat",
+    "sessionTitle": "Sesiunea ta",
+    "sessionBody": "Esti autentificat ca {email}. Poti iesi din cont oricand de aici.",
+    "checkinKicker": "Check-in lunar",
+    "checkinTitle": "Actualizeaza datele cand corpul se schimba",
+    "checkinBody": "O data pe luna Forma iti va aminti sa verifici greutatea, obiectivul, nivelul de activitate si zilele disponibile pentru sala.",
+    "lastUpdate": "Ultimul update: {date}",
+    "settingsTitle": "Setari aplicatie",
+    "settingsBody": "Limba, tema si iesirea din cont sunt aici ca actiuni intentionate."
+  },
+  "pricing": {
+    "dashboard": "Dashboard",
+    "kicker": "abonament",
+    "title": "Alege cat AI vrei in rutina ta.",
+    "subtitle": "Free ramane util pentru inceput. Premium adauga planuri salvate, analiza mai bogata si memorie de progres.",
+    "free": "Free",
+    "freePrice": "$0",
+    "freeDesc": "Pentru start si consistenta.",
+    "freeFeature1": "Profil, calculator calorii si macro-uri",
+    "freeFeature2": "Jurnal alimentar text si estimare masa",
+    "freeFeature3": "2 generari AI de idei de masa / zi",
+    "freeFeature4": "Plan sala dupa zilele disponibile",
+    "freeFeature5": "Coach AI basic",
+    "startFree": "Incepe gratuit",
+    "continueFree": "Continua cu Free",
+    "premium": "Premium",
+    "premiumPrice": "$9.99",
+    "perMonth": "pe luna",
+    "statusActive": "Activ",
+    "statusUpgrade": "Upgrade",
+    "premiumFeature1": "Coach AI cu memorie",
+    "premiumFeature2": "Plan alimentar 3/7 zile",
+    "premiumFeature3": "Raport saptamanal",
+    "premiumFeature4": "Analiza poza cu mancare",
+    "premiumFeature5": "Notificari personalizate",
+    "openPremium": "Deschide Premium",
+    "createForPremium": "Creeaza cont pentru Premium",
+    "webhookNotice": "Plata singura nu deschide accesul in UI. Forma asteapta confirmarea reala din webhook-ul Stripe semnat; abia dupa aceea statusul abonamentului devine ACTIVE/TRIALING si functiile Premium se deblocheaza.",
+    "home": "Acasa"
+  },
+  "admin": {
+    "accessTitle": "Admin",
+    "accessDenied": "Admin access required.",
+    "kicker": "consola interna",
+    "title": "Admin Forma",
+    "users": "Utilizatori",
+    "premiumActive": "Premium activ",
+    "mealsSaved": "Mese salvate",
+    "activePlans": "Planuri active",
+    "workoutsLogged": "Antrenamente logate",
+    "pushDevices": "Device-uri push",
+    "recentAudit": "Audit recent",
+    "noAudit": "Inca nu exista actiuni auditate."
   }
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 function urlBase64ToUint8Array(value: string) {
   const padding = "=".repeat((4 - (value.length % 4)) % 4);
@@ -10,7 +11,8 @@ function urlBase64ToUint8Array(value: string) {
 }
 
 export function PushSetup() {
-  const [status, setStatus] = useState("Verificam suportul pentru notificari...");
+  const t = useTranslations("push");
+  const [status, setStatus] = useState(t("checkingSupport"));
   const [publicKey, setPublicKey] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,7 +21,7 @@ export function PushSetup() {
 
     async function loadStatus() {
       if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
-        setStatus("Browserul acesta nu suporta notificari push PWA.");
+        setStatus(t("unsupported"));
         return;
       }
 
@@ -32,12 +34,12 @@ export function PushSetup() {
         setPublicKey(payload.publicKey ?? "");
         setStatus(
           payload.activeCount
-            ? `Notificarile sunt active pe ${payload.activeCount} dispozitiv(e).`
-            : "Notificarile nu sunt active pe acest cont.",
+            ? t("activeOnDevices", { count: payload.activeCount })
+            : t("notActive"),
         );
       } catch {
         if (isMounted) {
-          setStatus("Nu am putut verifica notificarile.");
+          setStatus(t("couldNotCheck"));
         }
       }
     }
@@ -47,18 +49,18 @@ export function PushSetup() {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [t]);
 
   async function enableNotifications() {
     if (!publicKey || isLoading) return;
 
     setIsLoading(true);
-    setStatus("Cerem permisiunea pentru notificari...");
+    setStatus(t("requesting"));
 
     try {
       const permission = await Notification.requestPermission();
       if (permission !== "granted") {
-        setStatus("Notificarile nu au fost permise.");
+        setStatus(t("notAllowed"));
         return;
       }
 
@@ -78,12 +80,12 @@ export function PushSetup() {
       const payload = (await response.json()) as { error?: string };
 
       if (!response.ok) {
-        throw new Error(payload.error ?? "Subscription nu a putut fi salvata.");
+        throw new Error(payload.error ?? t("saveFailed"));
       }
 
-      setStatus("Notificarile sunt activate pentru acest dispozitiv.");
+      setStatus(t("enabledDevice"));
     } catch (error) {
-      setStatus(error instanceof Error ? error.message : "Nu am putut activa notificarile.");
+      setStatus(error instanceof Error ? error.message : t("enableFailed"));
     } finally {
       setIsLoading(false);
     }
@@ -94,14 +96,13 @@ export function PushSetup() {
   return (
     <section className="rounded-lg border border-[#ded9c8] bg-white p-5 shadow-sm">
       <p className="text-xs font-black uppercase tracking-[0.18em] text-[#527b20]">
-        PWA push
+        {t("kicker")}
       </p>
-      <h2 className="mt-2 text-2xl font-black">Notificari pe dispozitiv</h2>
+      <h2 className="mt-2 text-2xl font-black">{t("title")}</h2>
       <p className="mt-3 text-sm font-semibold leading-6 text-[#62695f]">{status}</p>
       {missingVapidKey ? (
         <p className="mt-3 rounded-lg border border-[#d6c981] bg-[#fff7cc] p-3 text-sm font-semibold leading-6 text-[#5d531c]">
-          Pentru push real trebuie configurata cheia publica VAPID in
-          NEXT_PUBLIC_VAPID_PUBLIC_KEY si cheia privata pe server.
+          {t("missingVapid")}
         </p>
       ) : null}
       <button
@@ -110,7 +111,7 @@ export function PushSetup() {
         onClick={enableNotifications}
         type="button"
       >
-        {isLoading ? "Se activeaza..." : "Activeaza notificari"}
+        {isLoading ? t("enabling") : t("enable")}
       </button>
     </section>
   );

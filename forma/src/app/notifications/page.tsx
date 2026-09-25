@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { AppShell } from "@/components/app-shell";
 import { PushSetup } from "@/features/notifications/push-setup";
 import { notificationTemplates } from "@/features/notifications/notification-templates";
@@ -11,15 +12,17 @@ export default async function NotificationsPage() {
     redirect("/login");
   }
 
+  const tp = await getTranslations("pages");
+  const t = await getTranslations("notifications");
+
   return (
-    <AppShell kicker="notificari" title="Ton prietenos, nu presiune">
+    <AppShell kicker={tp("notificationsKicker")} title={tp("notificationsTitle")}>
       <div className="mb-4">
         <PushSetup />
       </div>
       <section className="rounded-lg border border-[#ded9c8] bg-white p-5 shadow-sm">
         <p className="max-w-2xl text-sm leading-6 text-[#62695f]">
-          Aceste template-uri vor fi folosite de engine-ul de notificari. Userul va
-          putea alege frecventa: bland, normal sau ambitios.
+          {t("intro")}
         </p>
         <div className="mt-5 grid gap-3 md:grid-cols-2">
           {notificationTemplates.map((template) => (
@@ -27,8 +30,8 @@ export default async function NotificationsPage() {
               <p className="text-xs font-black uppercase tracking-[0.12em] text-[#527b20]">
                 {template.tone}
               </p>
-              <h2 className="mt-2 text-lg font-black">{template.title}</h2>
-              <p className="mt-2 text-sm leading-6 text-[#62695f]">{template.body}</p>
+              <h2 className="mt-2 text-lg font-black">{t(`templates.${template.id}.title`)}</h2>
+              <p className="mt-2 text-sm leading-6 text-[#62695f]">{t(`templates.${template.id}.body`)}</p>
             </article>
           ))}
         </div>
