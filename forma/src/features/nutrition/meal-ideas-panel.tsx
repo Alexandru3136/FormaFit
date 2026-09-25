@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 type MealIdea = {
   title: string;
@@ -24,9 +25,9 @@ type MealIdeaQuota = {
   used: number;
 };
 
-const examples = ["pui, orez, iaurt, rosii", "oua, branza, ton, avocado", "cartofi, curcan, salata"];
-
 export function MealIdeasPanel() {
+  const t = useTranslations("mealIdeas");
+  const examples = [t("example1"), t("example2"), t("example3")];
   const [ingredients, setIngredients] = useState("");
   const [ideas, setIdeas] = useState<MealIdea[]>([]);
   const [quota, setQuota] = useState<MealIdeaQuota | null>(null);
@@ -62,7 +63,7 @@ export function MealIdeasPanel() {
     if (trimmedIngredients.length < 3 || isLoading || quota?.remaining === 0) return;
 
     setIsLoading(true);
-    setStatus("Forma cauta variante potrivite profilului tau...");
+    setStatus(t("searching"));
     setIdeas([]);
 
     try {
@@ -79,7 +80,7 @@ export function MealIdeasPanel() {
         if (payload.quota) {
           setQuota(payload.quota);
         }
-        throw new Error(payload.error ?? "Nu am putut genera idei de masa.");
+        throw new Error(payload.error ?? t("cannotGenerate"));
       }
 
       setIdeas(payload.ideas);
@@ -88,29 +89,28 @@ export function MealIdeasPanel() {
       }
       setStatus(
         payload.quota?.isPremium
-          ? "Am generat variante Premium pentru profilul tau."
-          : `Generare folosita. Mai ai ${payload.quota?.remaining ?? 0} Free azi.`,
+          ? t("premiumGenerated")
+          : t("freeUsed", { remaining: payload.quota?.remaining ?? 0 }),
       );
     } catch (error) {
-      setStatus(error instanceof Error ? error.message : "Eroare necunoscuta.");
+      setStatus(error instanceof Error ? error.message : t("unknownError"));
     } finally {
       setIsLoading(false);
     }
   }
 
   const quotaLabel = quota?.isPremium
-    ? "Premium"
-    : `Free: ${quota?.remaining ?? 2} generari ramase azi`;
+    ? t("premiumBadge")
+    : t("freeBadge", { remaining: quota?.remaining ?? 2 });
   const isQuotaFinished = quota?.remaining === 0;
 
   return (
     <section className="rounded-lg border border-[#ded9c8] bg-white p-5 shadow-sm">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h2 className="text-xl font-black">Idei din ce ai acasa</h2>
+          <h2 className="text-xl font-black">{t("title")}</h2>
           <p className="mt-2 max-w-2xl text-sm font-semibold leading-6 text-[#62695f]">
-            Scrie ingredientele disponibile, iar Forma genereaza mese potrivite cu
-            profilul, obiectivul si restrictiile tale.
+            {t("subtitle")}
           </p>
         </div>
         <span className="w-fit rounded-lg bg-[#c8ff55] px-3 py-2 text-xs font-black text-[#101211]">
@@ -132,13 +132,13 @@ export function MealIdeasPanel() {
       </div>
 
       <label className="mt-4 block text-sm font-black text-[#555d52]" htmlFor="ingredients">
-        Ce produse ai?
+        {t("whatProducts")}
       </label>
       <textarea
         className="mt-2 min-h-28 w-full resize-none rounded-lg border border-[#d8d2bf] bg-[#fbfaf4] p-4 text-sm font-semibold leading-6 outline-none focus:border-[#123f31]"
         id="ingredients"
         onChange={(event) => setIngredients(event.target.value)}
-        placeholder="Ex: pui, orez, rosii, iaurt, castraveti..."
+        placeholder={t("placeholder")}
         value={ingredients}
       />
 
@@ -148,7 +148,7 @@ export function MealIdeasPanel() {
         onClick={generateIdeas}
         type="button"
       >
-        {isLoading ? "Se genereaza..." : isQuotaFinished ? "Limita Free folosita azi" : "Genereaza idei"}
+        {isLoading ? t("generating") : isQuotaFinished ? t("limitUsed") : t("generate")}
       </button>
 
       {status ? (
@@ -162,7 +162,7 @@ export function MealIdeasPanel() {
           {ideas.map((idea) => (
             <article className="rounded-lg bg-[#fbfaf4] p-4" key={idea.title}>
               <p className="text-sm font-black text-[#527b20]">
-                {idea.calories} kcal - {idea.proteinGrams}g proteine
+                {t("kcalProtein", { calories: idea.calories, protein: idea.proteinGrams })}
               </p>
               <h3 className="mt-2 text-lg font-black">{idea.title}</h3>
               <p className="mt-2 text-sm font-semibold leading-6 text-[#656b62]">

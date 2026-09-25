@@ -1,25 +1,27 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { type FoodEstimate, type FoodLogEntry } from "@/features/food-log/food-log";
 
 function MacroLine({ estimate }: { estimate: FoodEstimate }) {
+  const t = useTranslations("foodLog");
   return (
     <div className="grid grid-cols-4 gap-2 text-center">
       <div className="rounded-lg bg-[#fbfaf4] p-3">
-        <p className="text-xs font-black text-[#62695f]">Kcal</p>
+        <p className="text-xs font-black text-[#62695f]">{t("kcal")}</p>
         <p className="mt-1 text-lg font-black">{estimate.totals.calories}</p>
       </div>
       <div className="rounded-lg bg-[#fbfaf4] p-3">
-        <p className="text-xs font-black text-[#62695f]">Prot.</p>
+        <p className="text-xs font-black text-[#62695f]">{t("prot")}</p>
         <p className="mt-1 text-lg font-black">{estimate.totals.proteinGrams}g</p>
       </div>
       <div className="rounded-lg bg-[#fbfaf4] p-3">
-        <p className="text-xs font-black text-[#62695f]">Carb.</p>
+        <p className="text-xs font-black text-[#62695f]">{t("carb")}</p>
         <p className="mt-1 text-lg font-black">{estimate.totals.carbGrams}g</p>
       </div>
       <div className="rounded-lg bg-[#fbfaf4] p-3">
-        <p className="text-xs font-black text-[#62695f]">Gras.</p>
+        <p className="text-xs font-black text-[#62695f]">{t("fat")}</p>
         <p className="mt-1 text-lg font-black">{estimate.totals.fatGrams}g</p>
       </div>
     </div>
@@ -27,6 +29,7 @@ function MacroLine({ estimate }: { estimate: FoodEstimate }) {
 }
 
 export function FoodLogPanel() {
+  const t = useTranslations("foodLog");
   const [rawText, setRawText] = useState("");
   const [entries, setEntries] = useState<FoodLogEntry[]>([]);
   const [estimate, setEstimate] = useState<FoodEstimate | null>(null);
@@ -63,7 +66,7 @@ export function FoodLogPanel() {
     if (mealText.length < 3 || isEstimating) return;
 
     setIsEstimating(true);
-    setStatus("Forma estimeaza masa...");
+    setStatus(t("estimating"));
     setEstimate(null);
 
     try {
@@ -77,13 +80,13 @@ export function FoodLogPanel() {
       const payload = (await response.json()) as { estimate?: FoodEstimate; error?: string };
 
       if (!response.ok || !payload.estimate) {
-        throw new Error(payload.error ?? "Nu am putut estima masa.");
+        throw new Error(payload.error ?? t("cannotEstimate"));
       }
 
       setEstimate(payload.estimate);
-      setStatus("Estimare pregatita. Verifica portiile inainte sa salvezi.");
+      setStatus(t("estimateReady"));
     } catch (error) {
-      setStatus(error instanceof Error ? error.message : "Eroare necunoscuta.");
+      setStatus(error instanceof Error ? error.message : t("unknownError"));
     } finally {
       setIsEstimating(false);
     }
@@ -107,15 +110,15 @@ export function FoodLogPanel() {
       const payload = (await response.json()) as { entry?: FoodLogEntry; error?: string };
 
       if (!response.ok || !payload.entry) {
-        throw new Error(payload.error ?? "Masa nu a putut fi salvata.");
+        throw new Error(payload.error ?? t("saveFailed"));
       }
 
       setEntries((current) => [payload.entry as FoodLogEntry, ...current].slice(0, 20));
       setRawText("");
       setEstimate(null);
-      setStatus("Masa salvata pe contul tau.");
+      setStatus(t("mealSaved"));
     } catch (error) {
-      setStatus(error instanceof Error ? error.message : "Eroare necunoscuta.");
+      setStatus(error instanceof Error ? error.message : t("unknownError"));
     } finally {
       setIsSaving(false);
     }
@@ -124,9 +127,9 @@ export function FoodLogPanel() {
   return (
     <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
       <section className="rounded-lg border border-[#ded9c8] bg-white p-5 shadow-sm">
-        <h2 className="text-xl font-black">Jurnal rapid</h2>
+        <h2 className="text-xl font-black">{t("quickLog")}</h2>
         <label className="mt-4 block text-sm font-black text-[#555d52]" htmlFor="meal">
-          Ce ai mancat?
+          {t("whatAte")}
         </label>
         <textarea
           className="mt-2 min-h-36 w-full resize-none rounded-lg border border-[#d8d2bf] bg-[#fbfaf4] p-4 text-sm outline-none focus:border-[#123f31]"
@@ -136,14 +139,14 @@ export function FoodLogPanel() {
             setEstimate(null);
             setStatus("");
           }}
-          placeholder="Ex: 2 oua, o felie de paine, branza si cafea cu lapte"
+          placeholder={t("mealPlaceholder")}
           value={rawText}
         />
 
         {estimate ? (
           <div className="mt-4 rounded-lg border border-[#e6e1d1] p-4">
             <div className="mb-3 flex items-center justify-between gap-3">
-              <p className="text-sm font-black text-[#527b20]">Estimare AI</p>
+              <p className="text-sm font-black text-[#527b20]">{t("aiEstimate")}</p>
               <span className="rounded-md bg-[#c8ff55] px-3 py-1 text-xs font-black">
                 {estimate.confidence}
               </span>
@@ -165,7 +168,7 @@ export function FoodLogPanel() {
           onClick={estimateMeal}
           type="button"
         >
-          {isEstimating ? "Se estimeaza..." : "Estimeaza cu Forma AI"}
+          {isEstimating ? t("estimatingBtn") : t("estimateBtn")}
         </button>
 
         <button
@@ -174,22 +177,22 @@ export function FoodLogPanel() {
           onClick={saveEntry}
           type="button"
         >
-          {isSaving ? "Se salveaza..." : "Salveaza masa"}
+          {isSaving ? t("savingBtn") : t("saveBtn")}
         </button>
       </section>
 
       <section className="rounded-lg border border-[#ded9c8] bg-white p-5 shadow-sm">
-        <h2 className="text-xl font-black">Istoric din contul tau</h2>
+        <h2 className="text-xl font-black">{t("historyTitle")}</h2>
         <div className="mt-4 grid gap-3">
           {entries.length === 0 ? (
             <p className="rounded-lg bg-[#fbfaf4] p-4 text-sm font-semibold text-[#62695f]">
-              Inca nu ai mese salvate pe contul acesta. Istoricul este separat pentru fiecare user.
+              {t("noHistory")}
             </p>
           ) : (
             entries.map((entry) => (
               <article className="rounded-lg bg-[#fbfaf4] p-4" key={entry.id}>
                 <p className="text-sm font-black text-[#527b20]">
-                  {entry.totals.calories} kcal - {entry.totals.proteinGrams}g proteine
+                  {t("kcalProtein", { calories: entry.totals.calories, protein: entry.totals.proteinGrams })}
                 </p>
                 <h3 className="mt-2 font-black">{entry.rawText}</h3>
                 <p className="mt-2 text-sm leading-6 text-[#656b62]">

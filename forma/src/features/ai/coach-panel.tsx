@@ -1,28 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 type ChatMessage = {
   role: "assistant" | "user";
   text: string;
 };
 
-const initialMessages: ChatMessage[] = [
-  {
-    role: "assistant",
-    text: "Salut. Spune-mi ce vrei sa rezolvam azi: masa urmatoare, un antrenament, calorii, progres sau o revenire dupa o zi mai slaba.",
-  },
-];
-
-const prompts = [
-  "Fa-mi o cina din ce am in casa",
-  "Vreau antrenament full-body azi",
-  "Am depasit caloriile. Ce fac?",
-  "Fa-mi plan pe 3 zile",
-];
-
 export function CoachPanel() {
-  const [messages, setMessages] = useState(initialMessages);
+  const t = useTranslations("coach");
+  const prompts = [t("prompt1"), t("prompt2"), t("prompt3"), t("prompt4")];
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    { role: "assistant", text: t("initialMessage") },
+  ]);
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -50,12 +41,12 @@ export function CoachPanel() {
       const payload = (await response.json()) as { answer?: string; error?: string };
 
       if (!response.ok || !payload.answer) {
-        throw new Error(payload.error ?? "Coach-ul nu a putut raspunde.");
+        throw new Error(payload.error ?? t("noAnswer"));
       }
 
       setMessages((current) => [...current, { role: "assistant", text: payload.answer ?? "" }]);
     } catch (caughtError) {
-      setError(caughtError instanceof Error ? caughtError.message : "Eroare necunoscuta.");
+      setError(caughtError instanceof Error ? caughtError.message : t("unknownError"));
     } finally {
       setIsLoading(false);
     }
@@ -64,9 +55,9 @@ export function CoachPanel() {
   return (
     <section className="flex min-h-[calc(100vh-190px)] flex-col rounded-lg border border-[#ded9c8] bg-white shadow-sm">
       <div className="border-b border-[#ece6d6] px-4 py-3 sm:px-5">
-        <p className="text-sm font-black text-[#123f31]">Forma AI</p>
+        <p className="text-sm font-black text-[#123f31]">{t("aiTitle")}</p>
         <p className="mt-1 text-xs font-semibold text-[#62695f]">
-          Raspunde pe profilul tau real, salvat in cont.
+          {t("aiSubtitle")}
         </p>
       </div>
 
@@ -80,7 +71,7 @@ export function CoachPanel() {
                   : "flex h-10 w-10 items-center justify-center rounded-lg bg-[#123f31] text-sm font-black text-[#c8ff55]"
               }
             >
-              {chatMessage.role === "user" ? "Tu" : "F"}
+              {chatMessage.role === "user" ? t("you") : "F"}
             </div>
             <div
               className={
@@ -102,7 +93,7 @@ export function CoachPanel() {
               F
             </div>
             <div className="rounded-lg bg-white p-4 text-sm font-semibold text-[#62695f] ring-1 ring-[#ece6d6]">
-              Forma scrie raspunsul...
+              {t("writing")}
             </div>
           </article>
         ) : null}
@@ -130,7 +121,7 @@ export function CoachPanel() {
 
         <div className="rounded-lg border border-[#d8d2bf] bg-[#fbfaf4] p-3">
         <label className="sr-only" htmlFor="coach-message">
-          Mesaj pentru coach
+          {t("messageLabel")}
         </label>
         <textarea
           className="min-h-24 w-full resize-none bg-transparent text-sm font-semibold leading-6 outline-none"
@@ -142,7 +133,7 @@ export function CoachPanel() {
               void sendMessage();
             }
           }}
-          placeholder="Scrie mesajul tau..."
+          placeholder={t("placeholder")}
           value={message}
         />
         <button
@@ -151,7 +142,7 @@ export function CoachPanel() {
           onClick={sendMessage}
           type="button"
         >
-          {isLoading ? "Se trimite..." : "Trimite"}
+          {isLoading ? t("sending") : t("send")}
         </button>
         </div>
       </div>
