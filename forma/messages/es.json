@@ -362,6 +362,133 @@
     "generate": "Generar ideas",
     "kcalProtein": "{calories} kcal - {protein}g de proteína"
   },
+  "days": {
+    "monday": "Lunes",
+    "tuesday": "Martes",
+    "wednesday": "Miércoles",
+    "thursday": "Jueves",
+    "friday": "Viernes",
+    "saturday": "Sábado",
+    "sunday": "Domingo"
+  },
+  "sex": {
+    "female": "Mujer",
+    "male": "Hombre"
+  },
+  "trainingPlace": {
+    "gym": "Gimnasio",
+    "home": "Casa",
+    "mixed": "Mixto"
+  },
+  "experience": {
+    "beginner": "Principiante",
+    "intermediate": "Intermedio",
+    "advanced": "Avanzado"
+  },
+  "profileErrors": {
+    "nameMin": "El nombre debe tener al menos 2 caracteres.",
+    "ageRange": "La edad debe estar entre 14 y 90.",
+    "heightRange": "La altura debe estar entre 120 y 230 cm.",
+    "weightRange": "El peso debe estar entre 35 y 250 kg.",
+    "trainingDaysRange": "Los días de entrenamiento deben estar entre 1 y 7.",
+    "availableDaysMin": "Elige al menos tantos días disponibles como días de gimnasio quieras por semana."
+  },
+  "profileForm": {
+    "title": "Perfil personal",
+    "subtitle": "Estos datos alimentan la calculadora, el panel, los planes de comidas y los planes de entrenamiento.",
+    "name": "Nombre",
+    "namePlaceholder": "Ej.: Ana",
+    "sex": "Sexo",
+    "age": "Edad",
+    "heightCm": "Altura cm",
+    "weightKg": "Peso kg",
+    "goal": "Objetivo",
+    "activity": "Actividad",
+    "trainingDaysPerWeek": "Días de gimnasio / semana",
+    "trainingPlace": "Dónde entrenas",
+    "availableDays": "Días disponibles",
+    "experience": "Experiencia",
+    "foodPreferences": "Preferencias alimentarias",
+    "restrictions": "Restricciones / alergias",
+    "initialStatus": "Completa tu perfil para que calculemos tus objetivos.",
+    "unsaved": "Tienes cambios sin guardar.",
+    "checkErrors": "Revisa los errores antes de guardar.",
+    "saving": "Guardando perfil...",
+    "cannotSave": "No se pudo guardar el perfil.",
+    "unknownError": "Error desconocido.",
+    "saveBtn": "Guardar perfil",
+    "savingBtn": "Guardando...",
+    "resultTitle": "Resultado del perfil",
+    "dailyTarget": "Objetivo diario para {goal}, con {days} días de entrenamiento por semana.",
+    "bmrTdee": "BMR / TDEE",
+    "macros": "Macros",
+    "macrosValue": "{protein}g de proteína, {fat}g de grasa, {carbs}g de carbohidratos"
+  },
+  "workout": {
+    "focus": {
+      "fullBodyA": "Full-body A",
+      "fullBodyB": "Full-body B",
+      "fullBodyC": "Full-body C",
+      "upper": "Tren superior",
+      "lower": "Tren inferior"
+    },
+    "volume": {
+      "lose": "descansos 60-90 seg, ritmo constante",
+      "gain": "descansos 90-150 seg, progreso en cargas",
+      "maintain": "descansos 75-120 seg, técnica y constancia"
+    },
+    "detail": {
+      "base": "Base y fuerza; {volume}.",
+      "posterior": "Cadena posterior y hombros; {volume}.",
+      "moderate": "Volumen moderado y control; {volume}.",
+      "upper": "Pecho, espalda y hombros; {volume}.",
+      "lower": "Piernas, glúteos y abdomen; {volume}."
+    }
+  },
+  "workoutBrowser": {
+    "currentWeek": "Semana actual",
+    "chooseDay": "Elige el día y ve sus ejercicios. Plan generado para {days} días por semana.",
+    "exercisesDetail": "{count} ejercicios - {detail}",
+    "done": "hecho",
+    "savedWorkout": "Entrenamiento guardado",
+    "tracking": "Seguimiento",
+    "trackingBody": "Marca el día tras el entrenamiento y deja una nota para el progreso.",
+    "savingBtn": "Guardando...",
+    "update": "Actualizar el día",
+    "markDone": "Marcar hecho",
+    "notesPlaceholder": "Ej.: 3 buenas series, en el remo puedo subir peso la próxima vez...",
+    "saving": "Guardando el entrenamiento...",
+    "cannotSave": "No se pudo guardar el entrenamiento.",
+    "saved": "El entrenamiento está guardado para la semana actual.",
+    "unknownError": "Error desconocido.",
+    "photoAlt": "Foto de demostración para {name}"
+  },
+  "exercises": {
+    "squatMuscles": "Piernas, glúteos, tronco",
+    "squatCue": "Baja con control, mantén el tronco estable y empuja por el medio del pie.",
+    "squatNameGym": "Sentadillas",
+    "squatNameHome": "Sentadillas con peso corporal",
+    "rowMuscles": "Espalda, bíceps",
+    "rowCue": "Lleva los codos atrás, mantén el pecho abierto y evita el balanceo.",
+    "rowNameGym": "Remo en polea",
+    "rowNameHome": "Remo con banda/toalla",
+    "pressMuscles": "Pecho, hombros, tríceps",
+    "pressCue": "Controla la bajada y mantén los hombros abajo, sin arqueo agresivo.",
+    "pressNameGym": "Press con mancuernas",
+    "pressNameHome": "Flexiones inclinadas",
+    "hingeMuscles": "Glúteos, isquios, espalda",
+    "hingeCue": "Empuja las caderas atrás, espalda neutra, el movimiento viene de la cadera.",
+    "hingeNameGym": "Peso muerto rumano",
+    "hingeNameHome": "Hip hinge con mochila",
+    "shoulderMuscles": "Hombros, tríceps",
+    "shoulderCue": "Empuja en vertical, aprieta el core y no subas los hombros a las orejas.",
+    "shoulderNameGym": "Press militar",
+    "shoulderNameHome": "Pike push-up",
+    "plankMuscles": "Abdomen, tronco",
+    "plankCue": "Costillas abajo, pelvis neutra, respira lento y no dejes caer las caderas.",
+    "plankNameGym": "Plancha",
+    "plankNameHome": "Plancha"
+  },
   "account": {
     "kicker": "cuenta",
     "title": "Seguridad y datos",

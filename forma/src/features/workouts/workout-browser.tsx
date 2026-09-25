@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import type { WorkoutDay } from "@/features/workouts/workout-planner";
+import { useTranslations } from "next-intl";
+import type { PlannedExercise, WorkoutDay } from "@/features/workouts/workout-planner";
 
 type WorkoutBrowserProps = {
   plan: WorkoutDay[];
@@ -18,6 +19,18 @@ type WorkoutLog = {
 };
 
 export function WorkoutBrowser({ plan, trainingDaysPerWeek }: WorkoutBrowserProps) {
+  const t = useTranslations("workoutBrowser");
+  const td = useTranslations("days");
+  const tw = useTranslations("workout");
+  const tex = useTranslations("exercises");
+
+  const dayName = (day: string) => td(day);
+  const focusName = (focusKey: string) => tw(`focus.${focusKey}`);
+  const detailText = (day: WorkoutDay) =>
+    tw(`detail.${day.detailKey}`, { volume: tw(`volume.${day.volumeKey}`) });
+  const exerciseName = (exercise: PlannedExercise) =>
+    tex(`${exercise.key}Name${exercise.place === "home" ? "Home" : "Gym"}`);
+
   const [selectedDay, setSelectedDay] = useState(plan[0]?.day ?? "");
   const [logs, setLogs] = useState<WorkoutLog[]>([]);
   const [notes, setNotes] = useState("");
@@ -66,17 +79,17 @@ export function WorkoutBrowser({ plan, trainingDaysPerWeek }: WorkoutBrowserProp
     if (!activeDay || isSaving) return;
 
     setIsSaving(true);
-    setStatus("Salvam antrenamentul...");
+    setStatus(t("saving"));
 
     try {
       const response = await fetch("/api/workout-log", {
         body: JSON.stringify({
           dayLabel: activeDay.day,
           exercises: activeDay.exercises.map((exercise) => ({
-            name: exercise.name,
+            name: exerciseName(exercise),
             sets: exercise.sets,
           })),
-          focus: activeDay.focus,
+          focus: focusName(activeDay.focusKey),
           notes,
         }),
         headers: {
@@ -87,16 +100,16 @@ export function WorkoutBrowser({ plan, trainingDaysPerWeek }: WorkoutBrowserProp
       const payload = (await response.json()) as { error?: string; log?: WorkoutLog };
 
       if (!response.ok || !payload.log) {
-        throw new Error(payload.error ?? "Antrenamentul nu a putut fi salvat.");
+        throw new Error(payload.error ?? t("cannotSave"));
       }
 
       setLogs((current) => [
         payload.log as WorkoutLog,
         ...current.filter((log) => log.dayLabel !== payload.log?.dayLabel),
       ]);
-      setStatus("Antrenamentul este salvat pentru saptamana curenta.");
+      setStatus(t("saved"));
     } catch (error) {
-      setStatus(error instanceof Error ? error.message : "Eroare necunoscuta.");
+      setStatus(error instanceof Error ? error.message : t("unknownError"));
     } finally {
       setIsSaving(false);
     }
@@ -109,10 +122,9 @@ export function WorkoutBrowser({ plan, trainingDaysPerWeek }: WorkoutBrowserProp
   return (
     <div className="grid gap-4 lg:grid-cols-[0.82fr_1.18fr]">
       <section className="rounded-lg border border-[#ded9c8] bg-white p-5 shadow-sm">
-        <h2 className="text-xl font-black">Saptamana curenta</h2>
+        <h2 className="text-xl font-black">{t("currentWeek")}</h2>
         <p className="mt-2 text-sm font-semibold leading-6 text-[#62695f]">
-          Alege ziua si vezi exercitiile ei. Plan generat pentru {trainingDaysPerWeek}{" "}
-          zile pe saptamana.
+          {t("chooseDay", { days: trainingDaysPerWeek })}
         </p>
 
         <div className="mt-4 grid gap-3">
@@ -136,11 +148,11 @@ export function WorkoutBrowser({ plan, trainingDaysPerWeek }: WorkoutBrowserProp
                     isSelected ? "text-[#c8ff55]" : "text-[#527b20]"
                   }`}
                 >
-                  {day.day}
+                  {dayName(day.day)}
                 </p>
-                <h3 className="mt-1 text-lg font-black">{day.focus}</h3>
+                <h3 className="mt-1 text-lg font-black">{focusName(day.focusKey)}</h3>
                 <p className={`mt-1 text-sm ${isSelected ? "text-[#edf4e7]" : "text-[#656b62]"}`}>
-                  {day.exercises.length} exercitii - {day.detail}
+                  {t("exercisesDetail", { count: day.exercises.length, detail: detailText(day) })}
                 </p>
                 {isCompleted ? (
                   <span
@@ -148,7 +160,7 @@ export function WorkoutBrowser({ plan, trainingDaysPerWeek }: WorkoutBrowserProp
                       isSelected ? "bg-[#c8ff55] text-[#101211]" : "bg-[#123f31] text-[#c8ff55]"
                     }`}
                   >
-                    facut
+                    {t("done")}
                   </span>
                 ) : null}
               </button>
@@ -164,21 +176,21 @@ export function WorkoutBrowser({ plan, trainingDaysPerWeek }: WorkoutBrowserProp
         >
           <div>
             <p className="text-xs font-black uppercase tracking-[0.14em] text-[#527b20]">
-              {activeDay.day}
+              {dayName(activeDay.day)}
             </p>
-            <h2 className="mt-1 text-2xl font-black">{activeDay.focus}</h2>
+            <h2 className="mt-1 text-2xl font-black">{focusName(activeDay.focusKey)}</h2>
           </div>
-          <p className="text-sm font-semibold text-[#62695f]">{activeDay.detail}</p>
+          <p className="text-sm font-semibold text-[#62695f]">{detailText(activeDay)}</p>
         </div>
 
         <div className="mt-5 rounded-lg border border-[#e6e1d1] bg-[#fbfaf4] p-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-sm font-black text-[#527b20]">
-                {activeLog ? "Antrenament salvat" : "Tracking"}
+                {activeLog ? t("savedWorkout") : t("tracking")}
               </p>
               <p className="mt-1 text-sm font-semibold leading-6 text-[#62695f]">
-                Bifeaza ziua dupa antrenament si lasa o nota pentru progres.
+                {t("trackingBody")}
               </p>
             </div>
             <button
@@ -187,13 +199,13 @@ export function WorkoutBrowser({ plan, trainingDaysPerWeek }: WorkoutBrowserProp
               onClick={completeWorkout}
               type="button"
             >
-              {isSaving ? "Se salveaza..." : activeLog ? "Actualizeaza ziua" : "Marcheaza facut"}
+              {isSaving ? t("savingBtn") : activeLog ? t("update") : t("markDone")}
             </button>
           </div>
           <textarea
             className="mt-3 min-h-24 w-full resize-none rounded-lg border border-[#d8d2bf] bg-white p-3 text-sm font-semibold leading-6 outline-none focus:border-[#123f31]"
             onChange={(event) => setNotes(event.target.value)}
-            placeholder="Ex: 3 seturi bune, la ramat pot creste greutatea data viitoare..."
+            placeholder={t("notesPlaceholder")}
             value={notes}
           />
           {status ? (
@@ -209,10 +221,10 @@ export function WorkoutBrowser({ plan, trainingDaysPerWeek }: WorkoutBrowserProp
                   ? "rounded-lg bg-[#fbfaf4] p-4"
                   : "grid gap-4 rounded-lg bg-[#fbfaf4] p-4 sm:grid-cols-[180px_1fr]"
               }
-              key={exercise.name}
+              key={exercise.key}
             >
               <Image
-                alt={`Demonstratie foto pentru ${exercise.name}`}
+                alt={t("photoAlt", { name: exerciseName(exercise) })}
                 className={
                   index === 0
                     ? "h-64 w-full rounded-lg object-cover"
@@ -224,13 +236,13 @@ export function WorkoutBrowser({ plan, trainingDaysPerWeek }: WorkoutBrowserProp
                 width={1280}
               />
               <div className={index === 0 ? "mt-4" : ""}>
-                <p className="text-sm font-black text-[#527b20]">{exercise.muscles}</p>
-                <h3 className="mt-1 text-xl font-black">{exercise.name}</h3>
+                <p className="text-sm font-black text-[#527b20]">{tex(`${exercise.key}Muscles`)}</p>
+                <h3 className="mt-1 text-xl font-black">{exerciseName(exercise)}</h3>
                 <p className="mt-2 w-fit rounded-lg bg-[#c8ff55] px-3 py-2 text-sm font-black text-[#101211]">
                   {exercise.sets}
                 </p>
                 <p className="mt-3 text-sm font-semibold leading-6 text-[#656b62]">
-                  {exercise.cue}
+                  {tex(`${exercise.key}Cue`)}
                 </p>
               </div>
             </article>

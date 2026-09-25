@@ -85,6 +85,8 @@ export default async function DashboardPage() {
   }
 
   const t = await getTranslations("dashboard");
+  const tw = await getTranslations("workout");
+  const td = await getTranslations("days");
   const locale = await getLocale();
   const targets = calculateTargets(profile);
   const { end: todayEnd, start: todayStart } = getTodayWindow();
@@ -288,10 +290,12 @@ export default async function DashboardPage() {
             {workoutPlan.map((day) => (
               <div className="rounded-lg bg-[#fbfaf4] p-4" key={day.day}>
                 <p className="text-xs font-black uppercase tracking-[0.12em] text-[#527b20]">
-                  {day.day}
+                  {td(day.day)}
                 </p>
-                <p className="mt-1 font-black">{day.focus}</p>
-                <p className="text-sm text-[#656b62]">{day.detail}</p>
+                <p className="mt-1 font-black">{tw(`focus.${day.focusKey}`)}</p>
+                <p className="text-sm text-[#656b62]">
+                  {tw(`detail.${day.detailKey}`, { volume: tw(`volume.${day.volumeKey}`) })}
+                </p>
               </div>
             ))}
           </div>

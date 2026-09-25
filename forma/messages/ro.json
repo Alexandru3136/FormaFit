@@ -362,6 +362,133 @@
     "generate": "Genereaza idei",
     "kcalProtein": "{calories} kcal - {protein}g proteine"
   },
+  "days": {
+    "monday": "Luni",
+    "tuesday": "Marti",
+    "wednesday": "Miercuri",
+    "thursday": "Joi",
+    "friday": "Vineri",
+    "saturday": "Sambata",
+    "sunday": "Duminica"
+  },
+  "sex": {
+    "female": "Femeie",
+    "male": "Barbat"
+  },
+  "trainingPlace": {
+    "gym": "Sala",
+    "home": "Acasa",
+    "mixed": "Mixt"
+  },
+  "experience": {
+    "beginner": "Incepator",
+    "intermediate": "Intermediar",
+    "advanced": "Avansat"
+  },
+  "profileErrors": {
+    "nameMin": "Numele trebuie sa aiba cel putin 2 caractere.",
+    "ageRange": "Varsta trebuie sa fie intre 14 si 90.",
+    "heightRange": "Inaltimea trebuie sa fie intre 120 si 230 cm.",
+    "weightRange": "Greutatea trebuie sa fie intre 35 si 250 kg.",
+    "trainingDaysRange": "Zilele de antrenament trebuie sa fie intre 1 si 7.",
+    "availableDaysMin": "Alege cel putin atatea zile disponibile cate zile de sala vrei pe saptamana."
+  },
+  "profileForm": {
+    "title": "Profil personal",
+    "subtitle": "Aceste date vor alimenta calculatorul, dashboard-ul, planurile de mese si planurile de antrenament.",
+    "name": "Nume",
+    "namePlaceholder": "Ex: Ana",
+    "sex": "Sex",
+    "age": "Varsta",
+    "heightCm": "Inaltime cm",
+    "weightKg": "Greutate kg",
+    "goal": "Obiectiv",
+    "activity": "Activitate",
+    "trainingDaysPerWeek": "Zile sala / saptamana",
+    "trainingPlace": "Unde te antrenezi",
+    "availableDays": "Zile disponibile",
+    "experience": "Experienta",
+    "foodPreferences": "Preferinte alimentare",
+    "restrictions": "Restrictii / alergii",
+    "initialStatus": "Completeaza profilul ca sa calculam tintele tale.",
+    "unsaved": "Ai modificari nesalvate.",
+    "checkErrors": "Verifica erorile inainte de salvare.",
+    "saving": "Se salveaza profilul...",
+    "cannotSave": "Profilul nu a putut fi salvat.",
+    "unknownError": "Eroare necunoscuta.",
+    "saveBtn": "Salveaza profil",
+    "savingBtn": "Se salveaza...",
+    "resultTitle": "Rezultat profil",
+    "dailyTarget": "Tinta zilnica pentru {goal}, cu {days} zile de antrenament pe saptamana.",
+    "bmrTdee": "BMR / TDEE",
+    "macros": "Macro-uri",
+    "macrosValue": "{protein}g proteine, {fat}g grasimi, {carbs}g carbohidrati"
+  },
+  "workout": {
+    "focus": {
+      "fullBodyA": "Full-body A",
+      "fullBodyB": "Full-body B",
+      "fullBodyC": "Full-body C",
+      "upper": "Upper",
+      "lower": "Lower"
+    },
+    "volume": {
+      "lose": "pauze 60-90 sec, ritm constant",
+      "gain": "pauze 90-150 sec, progres pe greutati",
+      "maintain": "pauze 75-120 sec, tehnica si consecventa"
+    },
+    "detail": {
+      "base": "Baza si forta; {volume}.",
+      "posterior": "Posterior chain si umeri; {volume}.",
+      "moderate": "Volum moderat si control; {volume}.",
+      "upper": "Piept, spate si umeri; {volume}.",
+      "lower": "Picioare, fesieri si abdomen; {volume}."
+    }
+  },
+  "workoutBrowser": {
+    "currentWeek": "Saptamana curenta",
+    "chooseDay": "Alege ziua si vezi exercitiile ei. Plan generat pentru {days} zile pe saptamana.",
+    "exercisesDetail": "{count} exercitii - {detail}",
+    "done": "facut",
+    "savedWorkout": "Antrenament salvat",
+    "tracking": "Tracking",
+    "trackingBody": "Bifeaza ziua dupa antrenament si lasa o nota pentru progres.",
+    "savingBtn": "Se salveaza...",
+    "update": "Actualizeaza ziua",
+    "markDone": "Marcheaza facut",
+    "notesPlaceholder": "Ex: 3 seturi bune, la ramat pot creste greutatea data viitoare...",
+    "saving": "Salvam antrenamentul...",
+    "cannotSave": "Antrenamentul nu a putut fi salvat.",
+    "saved": "Antrenamentul este salvat pentru saptamana curenta.",
+    "unknownError": "Eroare necunoscuta.",
+    "photoAlt": "Demonstratie foto pentru {name}"
+  },
+  "exercises": {
+    "squatMuscles": "Picioare, fesieri, trunchi",
+    "squatCue": "Coboara controlat, tine trunchiul stabil si impinge prin mijlocul talpii.",
+    "squatNameGym": "Genuflexiuni",
+    "squatNameHome": "Genuflexiuni cu greutatea corpului",
+    "rowMuscles": "Spate, biceps",
+    "rowCue": "Trage coatele inapoi, mentine pieptul deschis si evita balansul.",
+    "rowNameGym": "Ramat la cablu",
+    "rowNameHome": "Ramat cu elastic/prosop",
+    "pressMuscles": "Piept, umeri, triceps",
+    "pressCue": "Controleaza coborarea si pastreaza umerii jos, fara arcuire agresiva.",
+    "pressNameGym": "Impins cu gantere",
+    "pressNameHome": "Flotari inclinate",
+    "hingeMuscles": "Fesieri, femurali, spate",
+    "hingeCue": "Impinge soldurile inapoi, spatele ramane neutru si miscarea vine din sold.",
+    "hingeNameGym": "Indreptari romanesti",
+    "hingeNameHome": "Hip hinge cu rucsac",
+    "shoulderMuscles": "Umeri, triceps",
+    "shoulderCue": "Impinge vertical, strange abdomenul si nu ridica umerii spre urechi.",
+    "shoulderNameGym": "Impins deasupra capului",
+    "shoulderNameHome": "Pike push-up",
+    "plankMuscles": "Abdomen, trunchi",
+    "plankCue": "Coastele jos, bazin neutru, respira lent si nu lasa soldurile sa cada.",
+    "plankNameGym": "Plank",
+    "plankNameHome": "Plank"
+  },
   "account": {
     "kicker": "cont",
     "title": "Securitate si date",

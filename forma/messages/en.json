@@ -362,6 +362,133 @@
     "generate": "Generate ideas",
     "kcalProtein": "{calories} kcal - {protein}g protein"
   },
+  "days": {
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
+  },
+  "sex": {
+    "female": "Female",
+    "male": "Male"
+  },
+  "trainingPlace": {
+    "gym": "Gym",
+    "home": "Home",
+    "mixed": "Mixed"
+  },
+  "experience": {
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced"
+  },
+  "profileErrors": {
+    "nameMin": "Name must be at least 2 characters.",
+    "ageRange": "Age must be between 14 and 90.",
+    "heightRange": "Height must be between 120 and 230 cm.",
+    "weightRange": "Weight must be between 35 and 250 kg.",
+    "trainingDaysRange": "Training days must be between 1 and 7.",
+    "availableDaysMin": "Pick at least as many available days as gym days you want per week."
+  },
+  "profileForm": {
+    "title": "Personal profile",
+    "subtitle": "This data feeds the calculator, the dashboard, the meal plans, and the training plans.",
+    "name": "Name",
+    "namePlaceholder": "E.g.: Ana",
+    "sex": "Sex",
+    "age": "Age",
+    "heightCm": "Height cm",
+    "weightKg": "Weight kg",
+    "goal": "Goal",
+    "activity": "Activity",
+    "trainingDaysPerWeek": "Gym days / week",
+    "trainingPlace": "Where you train",
+    "availableDays": "Available days",
+    "experience": "Experience",
+    "foodPreferences": "Food preferences",
+    "restrictions": "Restrictions / allergies",
+    "initialStatus": "Complete your profile so we can calculate your targets.",
+    "unsaved": "You have unsaved changes.",
+    "checkErrors": "Check the errors before saving.",
+    "saving": "Saving profile...",
+    "cannotSave": "The profile could not be saved.",
+    "unknownError": "Unknown error.",
+    "saveBtn": "Save profile",
+    "savingBtn": "Saving...",
+    "resultTitle": "Profile result",
+    "dailyTarget": "Daily target for {goal}, with {days} training days per week.",
+    "bmrTdee": "BMR / TDEE",
+    "macros": "Macros",
+    "macrosValue": "{protein}g protein, {fat}g fat, {carbs}g carbs"
+  },
+  "workout": {
+    "focus": {
+      "fullBodyA": "Full-body A",
+      "fullBodyB": "Full-body B",
+      "fullBodyC": "Full-body C",
+      "upper": "Upper",
+      "lower": "Lower"
+    },
+    "volume": {
+      "lose": "60-90 sec rests, steady pace",
+      "gain": "90-150 sec rests, progress on weights",
+      "maintain": "75-120 sec rests, technique and consistency"
+    },
+    "detail": {
+      "base": "Base and strength; {volume}.",
+      "posterior": "Posterior chain and shoulders; {volume}.",
+      "moderate": "Moderate volume and control; {volume}.",
+      "upper": "Chest, back and shoulders; {volume}.",
+      "lower": "Legs, glutes and abs; {volume}."
+    }
+  },
+  "workoutBrowser": {
+    "currentWeek": "Current week",
+    "chooseDay": "Pick the day and see its exercises. Plan generated for {days} days per week.",
+    "exercisesDetail": "{count} exercises - {detail}",
+    "done": "done",
+    "savedWorkout": "Workout saved",
+    "tracking": "Tracking",
+    "trackingBody": "Check off the day after your workout and leave a note for progress.",
+    "savingBtn": "Saving...",
+    "update": "Update the day",
+    "markDone": "Mark done",
+    "notesPlaceholder": "E.g.: 3 good sets, on the row I can go heavier next time...",
+    "saving": "Saving the workout...",
+    "cannotSave": "The workout could not be saved.",
+    "saved": "The workout is saved for the current week.",
+    "unknownError": "Unknown error.",
+    "photoAlt": "Demo photo for {name}"
+  },
+  "exercises": {
+    "squatMuscles": "Legs, glutes, trunk",
+    "squatCue": "Lower under control, keep the trunk stable, and push through the mid-foot.",
+    "squatNameGym": "Squats",
+    "squatNameHome": "Bodyweight squats",
+    "rowMuscles": "Back, biceps",
+    "rowCue": "Pull the elbows back, keep the chest open, and avoid swinging.",
+    "rowNameGym": "Cable row",
+    "rowNameHome": "Band/towel row",
+    "pressMuscles": "Chest, shoulders, triceps",
+    "pressCue": "Control the descent and keep the shoulders down, without aggressive arching.",
+    "pressNameGym": "Dumbbell press",
+    "pressNameHome": "Incline push-ups",
+    "hingeMuscles": "Glutes, hamstrings, back",
+    "hingeCue": "Push the hips back, keep the back neutral, and drive from the hip.",
+    "hingeNameGym": "Romanian deadlift",
+    "hingeNameHome": "Backpack hip hinge",
+    "shoulderMuscles": "Shoulders, triceps",
+    "shoulderCue": "Press vertically, brace the core, and don't shrug the shoulders up.",
+    "shoulderNameGym": "Overhead press",
+    "shoulderNameHome": "Pike push-up",
+    "plankMuscles": "Abs, trunk",
+    "plankCue": "Ribs down, neutral pelvis, breathe slowly, and don't let the hips drop.",
+    "plankNameGym": "Plank",
+    "plankNameHome": "Plank"
+  },
   "account": {
     "kicker": "account",
     "title": "Security and data",

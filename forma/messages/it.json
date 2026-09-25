@@ -362,6 +362,133 @@
     "generate": "Genera idee",
     "kcalProtein": "{calories} kcal - {protein}g di proteine"
   },
+  "days": {
+    "monday": "Lunedì",
+    "tuesday": "Martedì",
+    "wednesday": "Mercoledì",
+    "thursday": "Giovedì",
+    "friday": "Venerdì",
+    "saturday": "Sabato",
+    "sunday": "Domenica"
+  },
+  "sex": {
+    "female": "Donna",
+    "male": "Uomo"
+  },
+  "trainingPlace": {
+    "gym": "Palestra",
+    "home": "Casa",
+    "mixed": "Misto"
+  },
+  "experience": {
+    "beginner": "Principiante",
+    "intermediate": "Intermedio",
+    "advanced": "Avanzato"
+  },
+  "profileErrors": {
+    "nameMin": "Il nome deve avere almeno 2 caratteri.",
+    "ageRange": "L'età deve essere tra 14 e 90.",
+    "heightRange": "L'altezza deve essere tra 120 e 230 cm.",
+    "weightRange": "Il peso deve essere tra 35 e 250 kg.",
+    "trainingDaysRange": "I giorni di allenamento devono essere tra 1 e 7.",
+    "availableDaysMin": "Scegli almeno tanti giorni disponibili quanti giorni di palestra vuoi a settimana."
+  },
+  "profileForm": {
+    "title": "Profilo personale",
+    "subtitle": "Questi dati alimentano il calcolatore, la dashboard, i piani pasti e i piani di allenamento.",
+    "name": "Nome",
+    "namePlaceholder": "Es.: Ana",
+    "sex": "Sesso",
+    "age": "Età",
+    "heightCm": "Altezza cm",
+    "weightKg": "Peso kg",
+    "goal": "Obiettivo",
+    "activity": "Attività",
+    "trainingDaysPerWeek": "Giorni palestra / settimana",
+    "trainingPlace": "Dove ti alleni",
+    "availableDays": "Giorni disponibili",
+    "experience": "Esperienza",
+    "foodPreferences": "Preferenze alimentari",
+    "restrictions": "Restrizioni / allergie",
+    "initialStatus": "Completa il profilo così calcoliamo i tuoi obiettivi.",
+    "unsaved": "Hai modifiche non salvate.",
+    "checkErrors": "Controlla gli errori prima di salvare.",
+    "saving": "Salvataggio del profilo...",
+    "cannotSave": "Il profilo non è stato salvato.",
+    "unknownError": "Errore sconosciuto.",
+    "saveBtn": "Salva profilo",
+    "savingBtn": "Salvataggio...",
+    "resultTitle": "Risultato del profilo",
+    "dailyTarget": "Obiettivo giornaliero per {goal}, con {days} giorni di allenamento a settimana.",
+    "bmrTdee": "BMR / TDEE",
+    "macros": "Macro",
+    "macrosValue": "{protein}g di proteine, {fat}g di grassi, {carbs}g di carboidrati"
+  },
+  "workout": {
+    "focus": {
+      "fullBodyA": "Full-body A",
+      "fullBodyB": "Full-body B",
+      "fullBodyC": "Full-body C",
+      "upper": "Upper",
+      "lower": "Lower"
+    },
+    "volume": {
+      "lose": "recuperi 60-90 sec, ritmo costante",
+      "gain": "recuperi 90-150 sec, progressione sui pesi",
+      "maintain": "recuperi 75-120 sec, tecnica e costanza"
+    },
+    "detail": {
+      "base": "Base e forza; {volume}.",
+      "posterior": "Catena posteriore e spalle; {volume}.",
+      "moderate": "Volume moderato e controllo; {volume}.",
+      "upper": "Petto, schiena e spalle; {volume}.",
+      "lower": "Gambe, glutei e addome; {volume}."
+    }
+  },
+  "workoutBrowser": {
+    "currentWeek": "Settimana corrente",
+    "chooseDay": "Scegli il giorno e vedi i suoi esercizi. Piano generato per {days} giorni a settimana.",
+    "exercisesDetail": "{count} esercizi - {detail}",
+    "done": "fatto",
+    "savedWorkout": "Allenamento salvato",
+    "tracking": "Tracking",
+    "trackingBody": "Segna il giorno dopo l'allenamento e lascia una nota per i progressi.",
+    "savingBtn": "Salvataggio...",
+    "update": "Aggiorna il giorno",
+    "markDone": "Segna come fatto",
+    "notesPlaceholder": "Es.: 3 buone serie, al rematore posso salire di peso la prossima volta...",
+    "saving": "Salvataggio dell'allenamento...",
+    "cannotSave": "L'allenamento non è stato salvato.",
+    "saved": "L'allenamento è salvato per la settimana corrente.",
+    "unknownError": "Errore sconosciuto.",
+    "photoAlt": "Foto dimostrativa per {name}"
+  },
+  "exercises": {
+    "squatMuscles": "Gambe, glutei, tronco",
+    "squatCue": "Scendi in controllo, tieni il tronco stabile e spingi dal centro del piede.",
+    "squatNameGym": "Squat",
+    "squatNameHome": "Squat a corpo libero",
+    "rowMuscles": "Schiena, bicipiti",
+    "rowCue": "Tira i gomiti indietro, tieni il petto aperto ed evita lo slancio.",
+    "rowNameGym": "Rematore ai cavi",
+    "rowNameHome": "Rematore con elastico/asciugamano",
+    "pressMuscles": "Petto, spalle, tricipiti",
+    "pressCue": "Controlla la discesa e tieni le spalle basse, senza inarcamento aggressivo.",
+    "pressNameGym": "Distensioni con manubri",
+    "pressNameHome": "Piegamenti inclinati",
+    "hingeMuscles": "Glutei, femorali, schiena",
+    "hingeCue": "Spingi i fianchi indietro, schiena neutra, il movimento parte dall'anca.",
+    "hingeNameGym": "Stacco rumeno",
+    "hingeNameHome": "Hip hinge con zaino",
+    "shoulderMuscles": "Spalle, tricipiti",
+    "shoulderCue": "Spingi in verticale, contrai il core e non alzare le spalle verso le orecchie.",
+    "shoulderNameGym": "Lento avanti",
+    "shoulderNameHome": "Pike push-up",
+    "plankMuscles": "Addome, tronco",
+    "plankCue": "Costole in basso, bacino neutro, respira lentamente e non far cadere i fianchi.",
+    "plankNameGym": "Plank",
+    "plankNameHome": "Plank"
+  },
   "account": {
     "kicker": "account",
     "title": "Sicurezza e dati",

@@ -1,20 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import {
-  activityLabel,
-  calculateTargets,
-  goalLabel,
-} from "@/features/nutrition/calorie-calculator";
+import { useTranslations } from "next-intl";
+import { calculateTargets } from "@/features/nutrition/calorie-calculator";
 import {
   activityOptions,
-  experienceLabel,
   experienceOptions,
   goalOptions,
   sexOptions,
-  trainingDayLabel,
   trainingDayOptions,
-  trainingPlaceLabel,
   trainingPlaceOptions,
   type TrainingDay,
   type UserProfile,
@@ -130,9 +124,12 @@ function TrainingDaysPicker({
     onChange(trainingDayOptions.filter((option) => nextDays.includes(option)));
   }
 
+  const t = useTranslations("profileForm");
+  const td = useTranslations("days");
+
   return (
     <div>
-      <p className="text-sm font-black text-[#535b50]">Zile disponibile</p>
+      <p className="text-sm font-black text-[#535b50]">{t("availableDays")}</p>
       <div className="mt-2 grid gap-2 sm:grid-cols-4">
         {trainingDayOptions.map((day) => {
           const isSelected = selectedDays.includes(day);
@@ -147,7 +144,7 @@ function TrainingDaysPicker({
               onClick={() => toggleDay(day)}
               type="button"
             >
-              {trainingDayLabel(day)}
+              {td(day)}
             </button>
           );
         })}
@@ -157,11 +154,18 @@ function TrainingDaysPicker({
 }
 
 export function ProfileForm({ initialProfile, redirectTo = "/dashboard" }: ProfileFormProps) {
+  const t = useTranslations("profileForm");
+  const terr = useTranslations("profileErrors");
+  const tg = useTranslations("goals");
+  const ta = useTranslations("activity");
+  const ts = useTranslations("sex");
+  const tpl = useTranslations("trainingPlace");
+  const texp = useTranslations("experience");
   const [profile, setProfile] = useState(() => {
     const storedProfile = readStoredProfile();
     return initialProfile.name ? initialProfile : storedProfile;
   });
-  const [status, setStatus] = useState("Completeaza profilul ca sa calculam tintele tale.");
+  const [status, setStatus] = useState(t("initialStatus"));
   const [isSaving, setIsSaving] = useState(false);
 
   const validation = useMemo(() => validateProfile(profile), [profile]);
@@ -169,7 +173,7 @@ export function ProfileForm({ initialProfile, redirectTo = "/dashboard" }: Profi
 
   function updateProfile<T extends keyof UserProfile>(key: T, value: UserProfile[T]) {
     setProfile((current) => ({ ...current, [key]: value }));
-    setStatus("Ai modificari nesalvate.");
+    setStatus(t("unsaved"));
   }
 
   function updateTrainingDaysPerWeek(value: number) {
@@ -177,7 +181,7 @@ export function ProfileForm({ initialProfile, redirectTo = "/dashboard" }: Profi
       ...current,
       trainingDaysPerWeek: value,
     }));
-    setStatus("Ai modificari nesalvate.");
+    setStatus(t("unsaved"));
   }
 
   function updateAvailableTrainingDays(days: TrainingDay[]) {
@@ -186,18 +190,18 @@ export function ProfileForm({ initialProfile, redirectTo = "/dashboard" }: Profi
       availableTrainingDays: days,
       trainingDaysPerWeek: Math.min(current.trainingDaysPerWeek, Math.max(days.length, 1)),
     }));
-    setStatus("Ai modificari nesalvate.");
+    setStatus(t("unsaved"));
   }
 
   async function saveProfile() {
     const result = validateProfile(profile);
     if (!result.isValid) {
-      setStatus("Verifica erorile inainte de salvare.");
+      setStatus(t("checkErrors"));
       return;
     }
 
     setIsSaving(true);
-    setStatus("Se salveaza profilul...");
+    setStatus(t("saving"));
 
     try {
       const response = await fetch("/api/profile", {
@@ -210,13 +214,13 @@ export function ProfileForm({ initialProfile, redirectTo = "/dashboard" }: Profi
       const payload = (await response.json()) as { error?: string };
 
       if (!response.ok) {
-        throw new Error(payload.error ?? "Profilul nu a putut fi salvat.");
+        throw new Error(payload.error ?? t("cannotSave"));
       }
 
       writeStoredProfile(profile);
       window.location.href = redirectTo;
     } catch (error) {
-      setStatus(error instanceof Error ? error.message : "Eroare necunoscuta.");
+      setStatus(error instanceof Error ? error.message : t("unknownError"));
       setIsSaving(false);
     }
   }
@@ -224,48 +228,47 @@ export function ProfileForm({ initialProfile, redirectTo = "/dashboard" }: Profi
   return (
     <div className="grid gap-4 lg:grid-cols-[1fr_380px]">
       <section className="rounded-lg border border-[#ded9c8] bg-white p-5 shadow-sm">
-        <h2 className="text-xl font-black">Profil personal</h2>
+        <h2 className="text-xl font-black">{t("title")}</h2>
         <p className="mt-2 text-sm leading-6 text-[#62695f]">
-          Aceste date vor alimenta calculatorul, dashboard-ul, planurile de mese si
-          planurile de antrenament.
+          {t("subtitle")}
         </p>
 
         <div className="mt-5 grid gap-4">
           <TextField
-            label="Nume"
+            label={t("name")}
             onChange={(value) => updateProfile("name", value)}
-            placeholder="Ex: Ana"
+            placeholder={t("namePlaceholder")}
             value={profile.name}
           />
 
           <Segment
-            format={(option) => (option === "female" ? "Femeie" : "Barbat")}
-            label="Sex"
+            format={(option) => ts(option)}
+            label={t("sex")}
             onChange={(value) => updateProfile("sex", value)}
             options={sexOptions}
             value={profile.sex}
           />
 
           <div className="grid gap-3 sm:grid-cols-3">
-            <NumberField label="Varsta" max={90} min={14} onChange={(value) => updateProfile("age", value)} value={profile.age} />
-            <NumberField label="Inaltime cm" max={230} min={120} onChange={(value) => updateProfile("heightCm", value)} value={profile.heightCm} />
-            <NumberField label="Greutate kg" max={250} min={35} onChange={(value) => updateProfile("weightKg", value)} value={profile.weightKg} />
+            <NumberField label={t("age")} max={90} min={14} onChange={(value) => updateProfile("age", value)} value={profile.age} />
+            <NumberField label={t("heightCm")} max={230} min={120} onChange={(value) => updateProfile("heightCm", value)} value={profile.heightCm} />
+            <NumberField label={t("weightKg")} max={250} min={35} onChange={(value) => updateProfile("weightKg", value)} value={profile.weightKg} />
           </div>
 
-          <Segment format={goalLabel} label="Obiectiv" onChange={(value) => updateProfile("goal", value)} options={goalOptions} value={profile.goal} />
-          <Segment format={activityLabel} label="Activitate" onChange={(value) => updateProfile("activityLevel", value)} options={activityOptions} value={profile.activityLevel} />
+          <Segment format={(option) => tg(option)} label={t("goal")} onChange={(value) => updateProfile("goal", value)} options={goalOptions} value={profile.goal} />
+          <Segment format={(option) => ta(option)} label={t("activity")} onChange={(value) => updateProfile("activityLevel", value)} options={activityOptions} value={profile.activityLevel} />
 
           <div className="grid gap-3 sm:grid-cols-2">
             <NumberField
-              label="Zile sala / saptamana"
+              label={t("trainingDaysPerWeek")}
               max={7}
               min={1}
               onChange={updateTrainingDaysPerWeek}
               value={profile.trainingDaysPerWeek}
             />
             <Segment
-              format={trainingPlaceLabel}
-              label="Unde te antrenezi"
+              format={(option) => tpl(option)}
+              label={t("trainingPlace")}
               onChange={(value) => updateProfile("trainingPlace", value)}
               options={trainingPlaceOptions}
               value={profile.trainingPlace}
@@ -278,20 +281,20 @@ export function ProfileForm({ initialProfile, redirectTo = "/dashboard" }: Profi
           />
 
           <Segment
-            format={experienceLabel}
-            label="Experienta"
+            format={(option) => texp(option)}
+            label={t("experience")}
             onChange={(value) => updateProfile("experienceLevel", value)}
             options={experienceOptions}
             value={profile.experienceLevel}
           />
 
-          <TextField label="Preferinte alimentare" onChange={(value) => updateProfile("foodPreferences", value)} value={profile.foodPreferences} />
-          <TextField label="Restrictii / alergii" onChange={(value) => updateProfile("restrictions", value)} value={profile.restrictions} />
+          <TextField label={t("foodPreferences")} onChange={(value) => updateProfile("foodPreferences", value)} value={profile.foodPreferences} />
+          <TextField label={t("restrictions")} onChange={(value) => updateProfile("restrictions", value)} value={profile.restrictions} />
         </div>
 
         {!validation.isValid ? (
           <div className="mt-5 rounded-lg border border-[#d6c981] bg-[#fff7cc] p-4 text-sm font-semibold leading-6 text-[#5d531c]">
-            {validation.errors.join(" ")}
+            {validation.errors.map((key) => terr(key)).join(" ")}
           </div>
         ) : null}
 
@@ -302,24 +305,26 @@ export function ProfileForm({ initialProfile, redirectTo = "/dashboard" }: Profi
             onClick={saveProfile}
             type="button"
           >
-            {isSaving ? "Se salveaza..." : "Salveaza profil"}
+            {isSaving ? t("savingBtn") : t("saveBtn")}
           </button>
           <p className="text-sm font-semibold text-[#62695f]">{status}</p>
         </div>
       </section>
 
       <aside className="rounded-lg bg-[#111317] p-5 text-white shadow-sm">
-        <p className="text-sm font-black text-[#c8ff55]">Rezultat profil</p>
+        <p className="text-sm font-black text-[#c8ff55]">{t("resultTitle")}</p>
         <h2 className="mt-2 text-3xl font-black">{targets.calories} kcal</h2>
         <p className="mt-2 text-sm leading-6 text-[#dce3d7]">
-          Tinta zilnica pentru {goalLabel(profile.goal).toLowerCase()}, cu{" "}
-          {profile.trainingDaysPerWeek} zile de antrenament pe saptamana.
+          {t("dailyTarget", {
+            goal: tg(profile.goal).toLowerCase(),
+            days: profile.trainingDaysPerWeek,
+          })}
         </p>
 
         <dl className="mt-5 grid gap-3">
           <div className="rounded-lg bg-white/[0.07] p-4">
             <dt className="text-xs font-black uppercase tracking-[0.12em] text-[#c8ff55]">
-              BMR / TDEE
+              {t("bmrTdee")}
             </dt>
             <dd className="mt-2 text-lg font-black">
               {targets.bmr} / {targets.tdee} kcal
@@ -327,11 +332,14 @@ export function ProfileForm({ initialProfile, redirectTo = "/dashboard" }: Profi
           </div>
           <div className="rounded-lg bg-white/[0.07] p-4">
             <dt className="text-xs font-black uppercase tracking-[0.12em] text-[#c8ff55]">
-              Macro-uri
+              {t("macros")}
             </dt>
             <dd className="mt-2 text-sm font-bold leading-6">
-              {targets.proteinGrams}g proteine, {targets.fatGrams}g grasimi,{" "}
-              {targets.carbGrams}g carbohidrati
+              {t("macrosValue", {
+                protein: targets.proteinGrams,
+                fat: targets.fatGrams,
+                carbs: targets.carbGrams,
+              })}
             </dd>
           </div>
         </dl>

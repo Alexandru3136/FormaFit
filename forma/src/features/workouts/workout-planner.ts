@@ -1,74 +1,55 @@
 import type { UserProfile } from "@/features/profile/profile";
-import { trainingDayLabel, trainingDayOptions } from "@/features/profile/profile";
+import { trainingDayOptions } from "@/features/profile/profile";
 
-export type Exercise = {
-  name: string;
-  muscles: string;
-  cue: string;
+export type ExerciseKey = "squat" | "row" | "press" | "hinge" | "shoulder" | "plank";
+
+export type PlannedExercise = {
+  key: ExerciseKey;
+  place: "gym" | "home";
   sets: string;
   image: string;
 };
 
 export type WorkoutDay = {
-  day: string;
-  focus: string;
-  detail: string;
-  exercises: Exercise[];
+  day: UserProfile["availableTrainingDays"][number];
+  focusKey: string;
+  detailKey: string;
+  volumeKey: "lose" | "gain" | "maintain";
+  exercises: PlannedExercise[];
 };
 
-const gymExercises = {
-  squat: {
-    cue: "Coboara controlat, tine trunchiul stabil si impinge prin mijlocul talpii.",
-    image: "/exercises/squat.png",
-    muscles: "Picioare, fesieri, trunchi",
-    name: "Genuflexiuni",
-    sets: "3 x 8-10",
-  },
-  row: {
-    cue: "Trage coatele inapoi, mentine pieptul deschis si evita balansul.",
-    image: "/exercises/cable-row.png",
-    muscles: "Spate, biceps",
-    name: "Ramat la cablu",
-    sets: "3 x 10-12",
-  },
-  press: {
-    cue: "Controleaza coborarea si pastreaza umerii jos, fara arcuire agresiva.",
-    image: "/exercises/dumbbell-press.png",
-    muscles: "Piept, umeri, triceps",
-    name: "Impins cu gantere",
-    sets: "3 x 8-12",
-  },
-  hinge: {
-    cue: "Impinge soldurile inapoi, spatele ramane neutru si miscarea vine din sold.",
-    image: "/exercises/romanian-deadlift.png",
-    muscles: "Fesieri, femurali, spate",
-    name: "Indreptari romanesti",
-    sets: "3 x 8-10",
-  },
-  shoulder: {
-    cue: "Impinge vertical, strange abdomenul si nu ridica umerii spre urechi.",
-    image: "/exercises/shoulder-press.png",
-    muscles: "Umeri, triceps",
-    name: "Impins deasupra capului",
-    sets: "3 x 8-10",
-  },
-  plank: {
-    cue: "Coastele jos, bazin neutru, respira lent si nu lasa soldurile sa cada.",
-    image: "/exercises/plank.png",
-    muscles: "Abdomen, trunchi",
-    name: "Plank",
-    sets: "3 x 30-45 sec",
-  },
+const exerciseImages: Record<ExerciseKey, string> = {
+  squat: "/exercises/squat.png",
+  row: "/exercises/cable-row.png",
+  press: "/exercises/dumbbell-press.png",
+  hinge: "/exercises/romanian-deadlift.png",
+  shoulder: "/exercises/shoulder-press.png",
+  plank: "/exercises/plank.png",
 };
 
-const homeExercises = {
-  squat: { ...gymExercises.squat, name: "Genuflexiuni cu greutatea corpului", sets: "4 x 12-15" },
-  row: { ...gymExercises.row, name: "Ramat cu elastic/prosop", sets: "3 x 12-15" },
-  press: { ...gymExercises.press, name: "Flotari inclinate", sets: "3 x 8-12" },
-  hinge: { ...gymExercises.hinge, name: "Hip hinge cu rucsac", sets: "3 x 12" },
-  shoulder: { ...gymExercises.shoulder, name: "Pike push-up", sets: "3 x 6-10" },
-  plank: gymExercises.plank,
+const gymSets: Record<ExerciseKey, string> = {
+  squat: "3 x 8-10",
+  row: "3 x 10-12",
+  press: "3 x 8-12",
+  hinge: "3 x 8-10",
+  shoulder: "3 x 8-10",
+  plank: "3 x 30-45 sec",
 };
+
+const homeSets: Record<ExerciseKey, string> = {
+  squat: "4 x 12-15",
+  row: "3 x 12-15",
+  press: "3 x 8-12",
+  hinge: "3 x 12",
+  shoulder: "3 x 6-10",
+  plank: "3 x 30-45 sec",
+};
+
+function volumeKeyForGoal(profile: UserProfile): WorkoutDay["volumeKey"] {
+  if (profile.goal === "lose") return "lose";
+  if (profile.goal === "gain") return "gain";
+  return "maintain";
+}
 
 type TrainingDayCount = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
@@ -82,14 +63,17 @@ const fallbackDays: Record<TrainingDayCount, UserProfile["availableTrainingDays"
   7: trainingDayOptions,
 };
 
-function pickLibrary(profile: UserProfile) {
-  return profile.trainingPlace === "home" ? homeExercises : gymExercises;
+function placeForProfile(profile: UserProfile): "gym" | "home" {
+  return profile.trainingPlace === "home" ? "home" : "gym";
 }
 
-function volumeForGoal(profile: UserProfile) {
-  if (profile.goal === "lose") return "pauze 60-90 sec, ritm constant";
-  if (profile.goal === "gain") return "pauze 90-150 sec, progres pe greutati";
-  return "pauze 75-120 sec, tehnica si consecventa";
+function makeExercise(key: ExerciseKey, place: "gym" | "home"): PlannedExercise {
+  return {
+    key,
+    place,
+    image: exerciseImages[key],
+    sets: place === "home" ? homeSets[key] : gymSets[key],
+  };
 }
 
 function pickTrainingDays(profile: UserProfile) {
@@ -107,55 +91,40 @@ function pickTrainingDays(profile: UserProfile) {
 }
 
 export function buildWorkoutPlan(profile: UserProfile): WorkoutDay[] {
-  const exercises = pickLibrary(profile);
+  const place = placeForProfile(profile);
   const selectedDays = pickTrainingDays(profile);
-  const volumeNote = volumeForGoal(profile);
+  const volumeKey = volumeKeyForGoal(profile);
+  const ex = (key: ExerciseKey) => makeExercise(key, place);
 
   if (selectedDays.length <= 3) {
     const fullBodyVariants = [
-      {
-        detail: `Baza si forta; ${volumeNote}.`,
-        exercises: [exercises.squat, exercises.press, exercises.row, exercises.plank],
-        focus: "Full-body A",
-      },
-      {
-        detail: `Posterior chain si umeri; ${volumeNote}.`,
-        exercises: [exercises.hinge, exercises.shoulder, exercises.row, exercises.plank],
-        focus: "Full-body B",
-      },
-      {
-        detail: `Volum moderat si control; ${volumeNote}.`,
-        exercises: [exercises.squat, exercises.hinge, exercises.press, exercises.plank],
-        focus: "Full-body C",
-      },
+      { focusKey: "fullBodyA", detailKey: "base", exercises: [ex("squat"), ex("press"), ex("row"), ex("plank")] },
+      { focusKey: "fullBodyB", detailKey: "posterior", exercises: [ex("hinge"), ex("shoulder"), ex("row"), ex("plank")] },
+      { focusKey: "fullBodyC", detailKey: "moderate", exercises: [ex("squat"), ex("hinge"), ex("press"), ex("plank")] },
     ];
 
     return selectedDays.map((day, index) => ({
-      day: trainingDayLabel(day),
+      day,
+      volumeKey,
       ...fullBodyVariants[index % fullBodyVariants.length],
     }));
   }
 
   const split = [
-    {
-      detail: `Piept, spate si umeri; ${volumeNote}.`,
-      exercises: [exercises.press, exercises.row, exercises.shoulder],
-      focus: "Upper",
-    },
-    {
-      detail: `Picioare, fesieri si abdomen; ${volumeNote}.`,
-      exercises: [exercises.squat, exercises.hinge, exercises.plank],
-      focus: "Lower",
-    },
+    { focusKey: "upper", detailKey: "upper", exercises: [ex("press"), ex("row"), ex("shoulder")] },
+    { focusKey: "lower", detailKey: "lower", exercises: [ex("squat"), ex("hinge"), ex("plank")] },
   ];
 
   return selectedDays.map((day, index) => ({
-    day: trainingDayLabel(day),
+    day,
+    volumeKey,
     ...split[index % split.length],
   }));
 }
 
-export function buildExerciseLibrary(profile: UserProfile): Exercise[] {
-  const exercises = pickLibrary(profile);
-  return [exercises.squat, exercises.row, exercises.press, exercises.hinge, exercises.shoulder, exercises.plank];
+export function buildExerciseLibrary(profile: UserProfile): PlannedExercise[] {
+  const place = placeForProfile(profile);
+  return (["squat", "row", "press", "hinge", "shoulder", "plank"] as ExerciseKey[]).map((key) =>
+    makeExercise(key, place),
+  );
 }

@@ -362,6 +362,133 @@
     "generate": "Ideen generieren",
     "kcalProtein": "{calories} kcal - {protein}g Protein"
   },
+  "days": {
+    "monday": "Montag",
+    "tuesday": "Dienstag",
+    "wednesday": "Mittwoch",
+    "thursday": "Donnerstag",
+    "friday": "Freitag",
+    "saturday": "Samstag",
+    "sunday": "Sonntag"
+  },
+  "sex": {
+    "female": "Weiblich",
+    "male": "Männlich"
+  },
+  "trainingPlace": {
+    "gym": "Studio",
+    "home": "Zuhause",
+    "mixed": "Gemischt"
+  },
+  "experience": {
+    "beginner": "Anfänger",
+    "intermediate": "Fortgeschritten",
+    "advanced": "Profi"
+  },
+  "profileErrors": {
+    "nameMin": "Der Name muss mindestens 2 Zeichen haben.",
+    "ageRange": "Das Alter muss zwischen 14 und 90 liegen.",
+    "heightRange": "Die Größe muss zwischen 120 und 230 cm liegen.",
+    "weightRange": "Das Gewicht muss zwischen 35 und 250 kg liegen.",
+    "trainingDaysRange": "Die Trainingstage müssen zwischen 1 und 7 liegen.",
+    "availableDaysMin": "Wähle mindestens so viele verfügbare Tage wie gewünschte Trainingstage pro Woche."
+  },
+  "profileForm": {
+    "title": "Persönliches Profil",
+    "subtitle": "Diese Daten speisen den Rechner, das Dashboard, die Essenspläne und die Trainingspläne.",
+    "name": "Name",
+    "namePlaceholder": "Z.B.: Ana",
+    "sex": "Geschlecht",
+    "age": "Alter",
+    "heightCm": "Größe cm",
+    "weightKg": "Gewicht kg",
+    "goal": "Ziel",
+    "activity": "Aktivität",
+    "trainingDaysPerWeek": "Trainingstage / Woche",
+    "trainingPlace": "Wo du trainierst",
+    "availableDays": "Verfügbare Tage",
+    "experience": "Erfahrung",
+    "foodPreferences": "Essensvorlieben",
+    "restrictions": "Einschränkungen / Allergien",
+    "initialStatus": "Vervollständige dein Profil, damit wir deine Ziele berechnen.",
+    "unsaved": "Du hast ungespeicherte Änderungen.",
+    "checkErrors": "Prüfe die Fehler vor dem Speichern.",
+    "saving": "Profil wird gespeichert...",
+    "cannotSave": "Das Profil konnte nicht gespeichert werden.",
+    "unknownError": "Unbekannter Fehler.",
+    "saveBtn": "Profil speichern",
+    "savingBtn": "Wird gespeichert...",
+    "resultTitle": "Profilergebnis",
+    "dailyTarget": "Tagesziel für {goal}, mit {days} Trainingstagen pro Woche.",
+    "bmrTdee": "BMR / TDEE",
+    "macros": "Makros",
+    "macrosValue": "{protein}g Protein, {fat}g Fett, {carbs}g Kohlenhydrate"
+  },
+  "workout": {
+    "focus": {
+      "fullBodyA": "Ganzkörper A",
+      "fullBodyB": "Ganzkörper B",
+      "fullBodyC": "Ganzkörper C",
+      "upper": "Oberkörper",
+      "lower": "Unterkörper"
+    },
+    "volume": {
+      "lose": "60-90 Sek. Pausen, gleichmäßiges Tempo",
+      "gain": "90-150 Sek. Pausen, Fortschritt beim Gewicht",
+      "maintain": "75-120 Sek. Pausen, Technik und Beständigkeit"
+    },
+    "detail": {
+      "base": "Basis und Kraft; {volume}.",
+      "posterior": "Posteriore Kette und Schultern; {volume}.",
+      "moderate": "Moderates Volumen und Kontrolle; {volume}.",
+      "upper": "Brust, Rücken und Schultern; {volume}.",
+      "lower": "Beine, Gesäß und Bauch; {volume}."
+    }
+  },
+  "workoutBrowser": {
+    "currentWeek": "Aktuelle Woche",
+    "chooseDay": "Wähle den Tag und sieh seine Übungen. Plan generiert für {days} Tage pro Woche.",
+    "exercisesDetail": "{count} Übungen - {detail}",
+    "done": "erledigt",
+    "savedWorkout": "Training gespeichert",
+    "tracking": "Tracking",
+    "trackingBody": "Hake den Tag nach dem Training ab und hinterlasse eine Notiz für den Fortschritt.",
+    "savingBtn": "Wird gespeichert...",
+    "update": "Tag aktualisieren",
+    "markDone": "Als erledigt markieren",
+    "notesPlaceholder": "Z.B.: 3 gute Sätze, beim Rudern kann ich nächstes Mal schwerer...",
+    "saving": "Training wird gespeichert...",
+    "cannotSave": "Das Training konnte nicht gespeichert werden.",
+    "saved": "Das Training ist für die aktuelle Woche gespeichert.",
+    "unknownError": "Unbekannter Fehler.",
+    "photoAlt": "Demo-Foto für {name}"
+  },
+  "exercises": {
+    "squatMuscles": "Beine, Gesäß, Rumpf",
+    "squatCue": "Kontrolliert absenken, den Rumpf stabil halten und über den Mittelfuß drücken.",
+    "squatNameGym": "Kniebeugen",
+    "squatNameHome": "Kniebeugen mit Körpergewicht",
+    "rowMuscles": "Rücken, Bizeps",
+    "rowCue": "Ellbogen nach hinten ziehen, Brust offen halten und Schwung vermeiden.",
+    "rowNameGym": "Kabelrudern",
+    "rowNameHome": "Rudern mit Band/Handtuch",
+    "pressMuscles": "Brust, Schultern, Trizeps",
+    "pressCue": "Kontrolliere das Absenken und halte die Schultern unten, ohne starkes Hohlkreuz.",
+    "pressNameGym": "Kurzhantel-Bankdrücken",
+    "pressNameHome": "Schräge Liegestütze",
+    "hingeMuscles": "Gesäß, hintere Oberschenkel, Rücken",
+    "hingeCue": "Hüfte nach hinten schieben, Rücken neutral, die Bewegung kommt aus der Hüfte.",
+    "hingeNameGym": "Rumänisches Kreuzheben",
+    "hingeNameHome": "Hip Hinge mit Rucksack",
+    "shoulderMuscles": "Schultern, Trizeps",
+    "shoulderCue": "Vertikal drücken, den Rumpf anspannen und die Schultern nicht hochziehen.",
+    "shoulderNameGym": "Überkopfdrücken",
+    "shoulderNameHome": "Pike Push-up",
+    "plankMuscles": "Bauch, Rumpf",
+    "plankCue": "Rippen nach unten, Becken neutral, langsam atmen und die Hüfte nicht absinken lassen.",
+    "plankNameGym": "Plank",
+    "plankNameHome": "Plank"
+  },
   "account": {
     "kicker": "konto",
     "title": "Sicherheit und Daten",

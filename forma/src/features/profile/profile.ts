@@ -94,15 +94,15 @@ export function experienceLabel(level: ExperienceLevel) {
 export function validateProfile(profile: UserProfile): ProfileValidationResult {
   const errors: string[] = [];
 
-  if (profile.name.trim().length < 2) errors.push("Numele trebuie sa aiba cel putin 2 caractere.");
-  if (profile.age < 14 || profile.age > 90) errors.push("Varsta trebuie sa fie intre 14 si 90.");
-  if (profile.heightCm < 120 || profile.heightCm > 230) errors.push("Inaltimea trebuie sa fie intre 120 si 230 cm.");
-  if (profile.weightKg < 35 || profile.weightKg > 250) errors.push("Greutatea trebuie sa fie intre 35 si 250 kg.");
+  if (profile.name.trim().length < 2) errors.push("nameMin");
+  if (profile.age < 14 || profile.age > 90) errors.push("ageRange");
+  if (profile.heightCm < 120 || profile.heightCm > 230) errors.push("heightRange");
+  if (profile.weightKg < 35 || profile.weightKg > 250) errors.push("weightRange");
   if (profile.trainingDaysPerWeek < 1 || profile.trainingDaysPerWeek > 7) {
-    errors.push("Zilele de antrenament trebuie sa fie intre 1 si 7.");
+    errors.push("trainingDaysRange");
   }
   if (profile.availableTrainingDays.length < profile.trainingDaysPerWeek) {
-    errors.push("Alege cel putin atatea zile disponibile cate zile de sala vrei pe saptamana.");
+    errors.push("availableDaysMin");
   }
 
   return {
