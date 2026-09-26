@@ -1,11 +1,15 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/server/db";
 import { requestOmniRouteChat } from "@/lib/server/omniroute";
+import { rateLimit } from "@/lib/server/rate-limit";
 import { getPremiumContext } from "@/lib/server/premium";
 
 const premiumCoachAction = "PREMIUM_COACH_MESSAGE";
 
 export async function POST(request: Request) {
+  const blocked = await rateLimit({ key: "premium-coach", limit: 10, windowSeconds: 60 });
+  if (blocked) return blocked;
+
   const context = await getPremiumContext();
   if (context.error) return context.error;
 

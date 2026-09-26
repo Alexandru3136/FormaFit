@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/server/db";
 import { requestOmniRouteChat } from "@/lib/server/omniroute";
+import { rateLimit } from "@/lib/server/rate-limit";
 import { getPremiumContext } from "@/lib/server/premium";
 
 function getWeekStart() {
@@ -12,6 +13,9 @@ function getWeekStart() {
 }
 
 export async function GET() {
+  const blocked = await rateLimit({ key: "premium-report", limit: 5, windowSeconds: 60 });
+  if (blocked) return blocked;
+
   const context = await getPremiumContext();
   if (context.error) return context.error;
 

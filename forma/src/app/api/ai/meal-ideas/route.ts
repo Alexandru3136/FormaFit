@@ -3,6 +3,7 @@ import { extractJsonObject } from "@/lib/server/ai-json";
 import { hasPremiumAccess } from "@/lib/server/access";
 import { db } from "@/lib/server/db";
 import { requestOmniRouteChat } from "@/lib/server/omniroute";
+import { rateLimit } from "@/lib/server/rate-limit";
 import { getCurrentUser } from "@/lib/server/session";
 
 const freeDailyLimit = 2;
@@ -83,6 +84,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const blocked = await rateLimit({ key: "ai-meal-ideas", limit: 10, windowSeconds: 60 });
+  if (blocked) return blocked;
+
   const user = await getCurrentUser();
 
   if (!user) {

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/server/db";
 import { requestOmniRouteChat } from "@/lib/server/omniroute";
+import { rateLimit } from "@/lib/server/rate-limit";
 import { getCurrentUser } from "@/lib/server/session";
 
 type CoachRequest = {
@@ -8,6 +9,8 @@ type CoachRequest = {
 };
 
 export async function POST(request: Request) {
+  const blocked = await rateLimit({ key: "ai-coach", limit: 10, windowSeconds: 60 });
+  if (blocked) return blocked;
   const user = await getCurrentUser();
 
   if (!user) {

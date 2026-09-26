@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { extractJsonObject } from "@/lib/server/ai-json";
 import { requestOmniRouteChat } from "@/lib/server/omniroute";
+import { rateLimit } from "@/lib/server/rate-limit";
 import { getPremiumContext } from "@/lib/server/premium";
 
 const maxImageSize = 5 * 1024 * 1024;
@@ -69,6 +70,9 @@ function sanitizeEstimate(value: unknown, note: string) {
 }
 
 export async function POST(request: Request) {
+  const blocked = await rateLimit({ key: "premium-food-photo", limit: 10, windowSeconds: 60 });
+  if (blocked) return blocked;
+
   const context = await getPremiumContext();
   if (context.error) return context.error;
 

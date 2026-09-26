@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { extractJsonObject } from "@/lib/server/ai-json";
 import { requestOmniRouteChat } from "@/lib/server/omniroute";
 import { db } from "@/lib/server/db";
+import { rateLimit } from "@/lib/server/rate-limit";
 import { getPremiumContext } from "@/lib/server/premium";
 
 type MealPlanBody = {
@@ -55,6 +56,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const blocked = await rateLimit({ key: "premium-meal-plan", limit: 5, windowSeconds: 60 });
+  if (blocked) return blocked;
+
   const context = await getPremiumContext();
   if (context.error) return context.error;
 

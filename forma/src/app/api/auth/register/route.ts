@@ -2,9 +2,13 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/server/db";
 import { parseAuthPayload } from "@/lib/server/auth-validation";
 import { hashPassword } from "@/lib/server/password";
+import { rateLimit } from "@/lib/server/rate-limit";
 import { createSession } from "@/lib/server/session";
 
 export async function POST(request: Request) {
+  const blocked = await rateLimit({ key: "auth-register", limit: 3, windowSeconds: 60 });
+  if (blocked) return blocked;
+
   let body: unknown;
 
   try {
