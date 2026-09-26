@@ -22,24 +22,28 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: parsed.error }, { status: 400 });
   }
 
-  const user = await db.user.findUnique({
-    where: {
-      email: parsed.data.email,
-    },
-  });
+  try {
+    const user = await db.user.findUnique({
+      where: {
+        email: parsed.data.email,
+      },
+    });
 
-  if (!user || !verifyPassword(parsed.data.password, user.passwordHash)) {
-    return NextResponse.json({ error: "Email sau parola incorecta." }, { status: 401 });
+    if (!user || !verifyPassword(parsed.data.password, user.passwordHash)) {
+      return NextResponse.json({ error: "Email sau parola incorecta." }, { status: 401 });
+    }
+
+    await createSession(user.id);
+
+    return NextResponse.json({
+      user: {
+        email: user.email,
+        id: user.id,
+        name: user.name,
+        role: user.role,
+      },
+    });
+  } catch {
+    return NextResponse.json({ error: "Server error. Please try again." }, { status: 500 });
   }
-
-  await createSession(user.id);
-
-  return NextResponse.json({
-    user: {
-      email: user.email,
-      id: user.id,
-      name: user.name,
-      role: user.role,
-    },
-  });
 }

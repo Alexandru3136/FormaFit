@@ -54,7 +54,11 @@ export function AuthForm({ mode }: AuthFormProps) {
         method: "POST",
       });
 
-      const payload = (await response.json()) as { error?: string };
+      let payload: { error?: string } = {};
+      const text = await response.text();
+      if (text) {
+        try { payload = JSON.parse(text); } catch { /* empty */ }
+      }
 
       if (!response.ok) {
         throw new Error(payload.error ?? t("authFailed"));
