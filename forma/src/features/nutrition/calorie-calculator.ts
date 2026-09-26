@@ -66,21 +66,3 @@ export function calculateTargets(input: CalorieInput): CalorieTargets {
     carbGrams,
   };
 }
-
-export function goalLabel(goal: Goal) {
-  return {
-    lose: "Slabire",
-    maintain: "Mentinere",
-    gain: "Crestere masa",
-  }[goal];
-}
-
-export function activityLabel(activityLevel: ActivityLevel) {
-  return {
-    sedentary: "Sedentar",
-    light: "Activitate usoara",
-    moderate: "Activitate moderata",
-    active: "Activ",
-    "very-active": "Foarte activ",
-  }[activityLevel];
-}

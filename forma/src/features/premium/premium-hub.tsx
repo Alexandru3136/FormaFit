@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 
 type ApiState = {
   error: string;
@@ -91,14 +92,14 @@ function asStringList(value: unknown) {
 
 const foodMacrosPer100g: Record<
   string,
-  { calories: number; carbGrams: number; fatGrams: number; label: string; proteinGrams: number }
+  { calories: number; carbGrams: number; fatGrams: number; proteinGrams: number }
 > = {
-  carrot: { calories: 35, carbGrams: 8, fatGrams: 0.2, label: "Morcov fiert", proteinGrams: 0.8 },
-  mushrooms: { calories: 28, carbGrams: 4, fatGrams: 0.4, label: "Ciuperci gatite", proteinGrams: 3.5 },
-  pasta: { calories: 150, carbGrams: 30, fatGrams: 1.1, label: "Paste fierte", proteinGrams: 5.8 },
-  peas: { calories: 84, carbGrams: 14, fatGrams: 0.4, label: "Mazare verde", proteinGrams: 5.4 },
-  potato: { calories: 87, carbGrams: 20, fatGrams: 0.1, label: "Cartof fiert", proteinGrams: 1.9 },
-  zucchini: { calories: 20, carbGrams: 3.1, fatGrams: 0.4, label: "Dovlecel gatit", proteinGrams: 1.2 },
+  carrot: { calories: 35, carbGrams: 8, fatGrams: 0.2, proteinGrams: 0.8 },
+  mushrooms: { calories: 28, carbGrams: 4, fatGrams: 0.4, proteinGrams: 3.5 },
+  pasta: { calories: 150, carbGrams: 30, fatGrams: 1.1, proteinGrams: 5.8 },
+  peas: { calories: 84, carbGrams: 14, fatGrams: 0.4, proteinGrams: 5.4 },
+  potato: { calories: 87, carbGrams: 20, fatGrams: 0.1, proteinGrams: 1.9 },
+  zucchini: { calories: 20, carbGrams: 3.1, fatGrams: 0.4, proteinGrams: 1.2 },
 };
 
 function parseGrams(portion: unknown) {
@@ -166,6 +167,7 @@ function ResultBox({ state }: { state: ApiState }) {
 }
 
 function MealPlanResult({ state }: { state: ApiState }) {
+  const t = useTranslations("premiumHub");
   if (state.error) return <ResultBox state={state} />;
   const result = asRecord(state.result);
   const days = Array.isArray(result.days) ? (result.days as MealPlanDay[]) : [];
@@ -182,26 +184,26 @@ function MealPlanResult({ state }: { state: ApiState }) {
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.2em] text-[#527b20]">
-                  {asText(day.label, `Ziua ${dayIndex + 1}`)}
+                  {asText(day.label, t("dayNumber", { number: dayIndex + 1 }))}
                 </p>
                 <h3 className="mt-2 text-2xl font-black">
                   {asNumber(day.calories)} kcal
                 </h3>
               </div>
               <span className="rounded-md bg-[#c8ff55] px-3 py-2 text-sm font-black">
-                {asNumber(day.proteinGrams)}g proteine
+                {t("proteinG", { grams: asNumber(day.proteinGrams) })}
               </span>
             </div>
 
             <div className="mt-4 grid gap-3">
               {meals.map((meal, mealIndex) => (
                 <div className="rounded-lg border border-[#e6e1d1] bg-white p-3" key={mealIndex}>
-                  <h4 className="font-black">{asText(meal.name, `Masa ${mealIndex + 1}`)}</h4>
+                  <h4 className="font-black">{asText(meal.name, t("mealNumber", { number: mealIndex + 1 }))}</h4>
                   <p className="mt-2 text-sm font-semibold leading-6 text-[#555d52]">
                     {asStringList(meal.ingredients).join(", ")}
                   </p>
                   <p className="mt-2 text-sm leading-6 text-[#656b62]">
-                    {asText(meal.notes, "Ajusteaza portiile dupa foame si tinta zilei.")}
+                    {asText(meal.notes, t("mealNotesFallback"))}
                   </p>
                 </div>
               ))}
@@ -214,12 +216,14 @@ function MealPlanResult({ state }: { state: ApiState }) {
 }
 
 function ActiveMealPlanSummary({ activePlan }: { activePlan: ActiveMealPlan | null }) {
+  const t = useTranslations("premiumHub");
+  const locale = useLocale();
   if (!activePlan) {
     return (
       <div className="rounded-lg border border-[#d8d2bf] bg-[#fbfaf4] p-4">
-        <p className="text-sm font-black text-[#527b20]">Plan activ</p>
+        <p className="text-sm font-black text-[#527b20]">{t("activePlan")}</p>
         <p className="mt-2 text-sm font-semibold leading-6 text-[#62695f]">
-          Nu ai inca un plan alimentar activ. Genereaza unul si salveaza-l pe cont.
+          {t("noActivePlan")}
         </p>
       </div>
     );
@@ -233,27 +237,27 @@ function ActiveMealPlanSummary({ activePlan }: { activePlan: ActiveMealPlan | nu
     <div className="rounded-lg bg-[#111317] p-4 text-white">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="text-sm font-black text-[#c8ff55]">Plan activ</p>
-          <h3 className="mt-2 text-2xl font-black">{activePlan.daysCount} zile</h3>
+          <p className="text-sm font-black text-[#c8ff55]">{t("activePlan")}</p>
+          <h3 className="mt-2 text-2xl font-black">{t("daysCount", { count: activePlan.daysCount })}</h3>
         </div>
         <span className="rounded-lg bg-white/[0.08] px-3 py-2 text-xs font-black text-[#c8ff55]">
-          pana la {new Date(activePlan.endsAt).toLocaleDateString("ro-RO")}
+          {t("untilDate", { date: new Date(activePlan.endsAt).toLocaleDateString(locale) })}
         </span>
       </div>
       {firstDay ? (
         <div className="mt-4 rounded-lg bg-white/[0.07] p-3">
           <p className="text-xs font-black uppercase tracking-[0.18em] text-[#c8ff55]">
-            Azi in plan
+            {t("todayInPlan")}
           </p>
-          <p className="mt-2 text-lg font-black">{asText(firstDay.label, "Ziua 1")}</p>
+          <p className="mt-2 text-lg font-black">{asText(firstDay.label, t("day1"))}</p>
           <p className="mt-1 text-sm font-semibold text-[#d9dfd3]">
-            {asNumber(firstDay.calories)} kcal - {asNumber(firstDay.proteinGrams)}g proteine
+            {t("kcalProtein", { calories: asNumber(firstDay.calories), protein: asNumber(firstDay.proteinGrams) })}
           </p>
         </div>
       ) : null}
       {activePlan.ingredients ? (
         <p className="mt-3 text-sm font-semibold leading-6 text-[#d9dfd3]">
-          Preferinte: {activePlan.ingredients}
+          {t("preferences", { items: activePlan.ingredients })}
         </p>
       ) : null}
     </div>
@@ -261,6 +265,8 @@ function ActiveMealPlanSummary({ activePlan }: { activePlan: ActiveMealPlan | nu
 }
 
 function FoodPhotoResult({ state }: { state: ApiState }) {
+  const t = useTranslations("premiumHub");
+  const tf = useTranslations("foods");
   const estimate = asRecord(state.result) as FoodPhotoEstimate;
   const items = useMemo(
     () => (Array.isArray(estimate.items) ? (estimate.items as FoodPhotoItem[]) : []),
@@ -270,7 +276,7 @@ function FoodPhotoResult({ state }: { state: ApiState }) {
 
   useEffect(() => {
     const nextItems = items.map((item) => {
-      const name = asText(item.name, "Component neclar");
+      const name = asText(item.name, t("unclearComponent"));
       const foodKey = detectFoodKey(name);
       const grams = parseGrams(item.portion);
       const locked = foodKey !== "unknown" && !name.toLowerCase().includes("neclar");
@@ -289,7 +295,7 @@ function FoodPhotoResult({ state }: { state: ApiState }) {
     });
 
     queueMicrotask(() => setConfirmedItems(nextItems));
-  }, [items]);
+  }, [items, t]);
 
   const confirmedTotals = useMemo(
     () =>
@@ -322,32 +328,32 @@ function FoodPhotoResult({ state }: { state: ApiState }) {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.2em] text-[#527b20]">
-            Estimare poza
+            {t("estimateTitle")}
           </p>
           <h3 className="mt-2 text-3xl font-black">
             {confirmedTotals.calories || asNumber(estimate.totals?.calories)} kcal
           </h3>
         </div>
         <span className="rounded-md bg-[#15171d] px-3 py-2 text-sm font-black text-white">
-          dupa confirmare
+          {t("afterConfirm")}
         </span>
       </div>
 
       <div className="mt-4 grid gap-2 sm:grid-cols-3">
         <div className="rounded-lg bg-white p-3">
-          <p className="text-xs font-black text-[#62695f]">Proteine</p>
+          <p className="text-xs font-black text-[#62695f]">{t("protein")}</p>
           <p className="mt-1 text-xl font-black">
             {confirmedTotals.proteinGrams || asNumber(estimate.totals?.proteinGrams)}g
           </p>
         </div>
         <div className="rounded-lg bg-white p-3">
-          <p className="text-xs font-black text-[#62695f]">Carbohidrati</p>
+          <p className="text-xs font-black text-[#62695f]">{t("carbs")}</p>
           <p className="mt-1 text-xl font-black">
             {confirmedTotals.carbGrams || asNumber(estimate.totals?.carbGrams)}g
           </p>
         </div>
         <div className="rounded-lg bg-white p-3">
-          <p className="text-xs font-black text-[#62695f]">Grasimi</p>
+          <p className="text-xs font-black text-[#62695f]">{t("fat")}</p>
           <p className="mt-1 text-xl font-black">
             {confirmedTotals.fatGrams || asNumber(estimate.totals?.fatGrams)}g
           </p>
@@ -359,7 +365,7 @@ function FoodPhotoResult({ state }: { state: ApiState }) {
           <div className="rounded-lg border border-[#e6e1d1] bg-white p-3" key={index}>
             <div className="flex flex-wrap justify-between gap-2">
               <h4 className="font-black">
-                {foodMacrosPer100g[item.selectedFood]?.label ?? item.originalName}
+                {foodMacrosPer100g[item.selectedFood] ? tf(item.selectedFood) : item.originalName}
               </h4>
               <span className="text-sm font-black text-[#527b20]">
                 {item.calories} kcal
@@ -367,7 +373,7 @@ function FoodPhotoResult({ state }: { state: ApiState }) {
             </div>
             {item.locked ? (
               <p className="mt-1 text-sm font-semibold text-[#62695f]">
-                {item.grams}g - {item.proteinGrams}g proteine
+                {t("gramsProtein", { grams: item.grams, protein: item.proteinGrams })}
               </p>
             ) : (
               <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_120px]">
@@ -378,10 +384,10 @@ function FoodPhotoResult({ state }: { state: ApiState }) {
                   }
                   value={item.selectedFood}
                 >
-                  <option value="unknown">Alege ingredientul</option>
-                  {Object.entries(foodMacrosPer100g).map(([key, macro]) => (
+                  <option value="unknown">{t("chooseIngredient")}</option>
+                  {Object.keys(foodMacrosPer100g).map((key) => (
                     <option key={key} value={key}>
-                      {macro.label}
+                      {tf(key)}
                     </option>
                   ))}
                 </select>
@@ -401,16 +407,14 @@ function FoodPhotoResult({ state }: { state: ApiState }) {
       </div>
 
       <p className="mt-4 rounded-lg border border-[#d6c981] bg-[#fff7cc] p-3 text-sm font-semibold leading-6 text-[#5d531c]">
-        {asText(
-          estimate.notes,
-          "Confirma ingredientele neclare inainte sa folosesti totalul. Gramajele raman estimari vizuale.",
-        )}
+        {asText(estimate.notes, t("photoNotesFallback"))}
       </p>
     </div>
   );
 }
 
 function NotificationsResult({ state }: { state: ApiState }) {
+  const t = useTranslations("premiumHub");
   if (state.error) return <ResultBox state={state} />;
   const result = asRecord(state.result);
   const notifications = Array.isArray(result.notifications)
@@ -425,13 +429,13 @@ function NotificationsResult({ state }: { state: ApiState }) {
         <article className="rounded-lg bg-[#fbfaf4] p-4" key={index}>
           <div className="flex flex-wrap items-center gap-2">
             <span className="rounded-md bg-[#c8ff55] px-2 py-1 text-xs font-black">
-              {asText(notification.timing, "Moment")}
+              {asText(notification.timing, t("notifMomentFallback"))}
             </span>
             <span className="text-xs font-black uppercase tracking-[0.18em] text-[#527b20]">
-              {asText(notification.tone, "prietenos")}
+              {asText(notification.tone, t("notifToneFallback"))}
             </span>
           </div>
-          <h3 className="mt-3 font-black">{asText(notification.title, "Notificare")}</h3>
+          <h3 className="mt-3 font-black">{asText(notification.title, t("notifTitleFallback"))}</h3>
           <p className="mt-2 text-sm font-semibold leading-6 text-[#555d52]">
             {asText(notification.body)}
           </p>
@@ -442,6 +446,7 @@ function NotificationsResult({ state }: { state: ApiState }) {
 }
 
 export function PremiumHub() {
+  const t = useTranslations("premiumHub");
   const [coachMessage, setCoachMessage] = useState("");
   const [mealIngredients, setMealIngredients] = useState("");
   const [mealDays, setMealDays] = useState(3);
@@ -501,7 +506,7 @@ export function PremiumHub() {
       const payload = (await response.json()) as { answer?: string; error?: string; report?: string };
 
       if (!response.ok) {
-        throw new Error(payload.error ?? "Functia Premium nu a raspuns.");
+        throw new Error(payload.error ?? t("notResponded"));
       }
 
       setter({
@@ -511,7 +516,7 @@ export function PremiumHub() {
       });
     } catch (error) {
       setter({
-        error: error instanceof Error ? error.message : "Eroare necunoscuta.",
+        error: error instanceof Error ? error.message : t("unknownError"),
         isLoading: false,
         result: null,
       });
@@ -534,13 +539,13 @@ export function PremiumHub() {
       const payload = (await response.json()) as { error?: string; estimate?: unknown };
 
       if (!response.ok) {
-        throw new Error(payload.error ?? "Analiza pozei nu a raspuns.");
+        throw new Error(payload.error ?? t("photoNotResponded"));
       }
 
       setPhotoState({ error: "", isLoading: false, result: payload.estimate ?? null });
     } catch (error) {
       setPhotoState({
-        error: error instanceof Error ? error.message : "Eroare necunoscuta.",
+        error: error instanceof Error ? error.message : t("unknownError"),
         isLoading: false,
         result: null,
       });
@@ -554,7 +559,7 @@ export function PremiumHub() {
     if (!Array.isArray(plan.days) || isSavingMealPlan) return;
 
     setIsSavingMealPlan(true);
-    setMealPlanStatus("Salvam planul ca plan activ...");
+    setMealPlanStatus(t("savingPlan"));
 
     try {
       const response = await fetch("/api/premium/meal-plan", {
@@ -571,13 +576,13 @@ export function PremiumHub() {
       const payload = (await response.json()) as { activePlan?: ActiveMealPlan | null; error?: string };
 
       if (!response.ok || !payload.activePlan) {
-        throw new Error(payload.error ?? "Planul nu a putut fi salvat.");
+        throw new Error(payload.error ?? t("cannotSavePlan"));
       }
 
       setActiveMealPlan(payload.activePlan);
-      setMealPlanStatus("Planul a fost salvat ca plan activ pe contul tau.");
+      setMealPlanStatus(t("planSaved"));
     } catch (error) {
-      setMealPlanStatus(error instanceof Error ? error.message : "Eroare necunoscuta.");
+      setMealPlanStatus(error instanceof Error ? error.message : t("unknownError"));
     } finally {
       setIsSavingMealPlan(false);
     }
@@ -585,11 +590,11 @@ export function PremiumHub() {
 
   return (
     <div className="grid gap-4">
-      <PremiumTool title="Coach AI cu memorie">
+      <PremiumTool title={t("coachTitle")}>
         <textarea
           className="min-h-28 w-full resize-none rounded-lg border border-[#d8d2bf] bg-[#fbfaf4] p-4 text-sm font-semibold leading-6 outline-none focus:border-[#123f31]"
           onChange={(event) => setCoachMessage(event.target.value)}
-          placeholder="Scrie ce s-a schimbat, ce ai reusit sau unde te-ai blocat..."
+          placeholder={t("coachPlaceholder")}
           value={coachMessage}
         />
         <button
@@ -600,12 +605,12 @@ export function PremiumHub() {
           }
           type="button"
         >
-          {coachState.isLoading ? "Coach-ul raspunde..." : "Intreaba Premium Coach"}
+          {coachState.isLoading ? t("coachLoading") : t("coachBtn")}
         </button>
         <ResultBox state={coachState} />
       </PremiumTool>
 
-      <PremiumTool title="Plan alimentar 3/7 zile">
+      <PremiumTool title={t("mealTitle")}>
         <ActiveMealPlanSummary activePlan={activeMealPlan} />
         <div className="grid gap-3 sm:grid-cols-[160px_1fr]">
           <select
@@ -613,13 +618,13 @@ export function PremiumHub() {
             onChange={(event) => setMealDays(Number(event.target.value))}
             value={mealDays}
           >
-            <option value={3}>3 zile</option>
-            <option value={7}>7 zile</option>
+            <option value={3}>{t("days3")}</option>
+            <option value={7}>{t("days7")}</option>
           </select>
           <input
             className="h-12 rounded-lg border border-[#d8d2bf] bg-[#fbfaf4] px-4 text-sm font-semibold outline-none focus:border-[#123f31]"
             onChange={(event) => setMealIngredients(event.target.value)}
-            placeholder="Ingrediente preferate sau ce ai acasa"
+            placeholder={t("ingredientsPlaceholder")}
             value={mealIngredients}
           />
         </div>
@@ -634,7 +639,7 @@ export function PremiumHub() {
           }
           type="button"
         >
-          {mealState.isLoading ? "Se genereaza..." : "Genereaza plan alimentar"}
+          {mealState.isLoading ? t("genLoading") : t("genBtn")}
         </button>
         {Array.isArray(asRecord(mealState.result).days) ? (
           <button
@@ -643,7 +648,7 @@ export function PremiumHub() {
             onClick={saveMealPlan}
             type="button"
           >
-            {isSavingMealPlan ? "Se salveaza..." : "Salveaza ca plan activ"}
+            {isSavingMealPlan ? t("saveLoading") : t("saveBtn")}
           </button>
         ) : null}
         {mealPlanStatus ? (
@@ -655,19 +660,19 @@ export function PremiumHub() {
       </PremiumTool>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <PremiumTool title="Raport saptamanal">
+        <PremiumTool title={t("reportTitle")}>
           <button
             className="min-h-12 w-full rounded-lg bg-[#15171d] px-4 py-3 text-sm font-black text-white disabled:opacity-50"
             disabled={reportState.isLoading}
             onClick={() => runJsonTool("/api/premium/report", setReportState)}
             type="button"
           >
-            {reportState.isLoading ? "Se calculeaza..." : "Genereaza raport"}
+            {reportState.isLoading ? t("reportLoading") : t("reportBtn")}
           </button>
           <ResultBox state={reportState} />
         </PremiumTool>
 
-        <PremiumTool title="Notificari personalizate">
+        <PremiumTool title={t("notifTitle")}>
           <button
             className="min-h-12 w-full rounded-lg bg-[#15171d] px-4 py-3 text-sm font-black text-white disabled:opacity-50"
             disabled={notificationState.isLoading}
@@ -676,16 +681,16 @@ export function PremiumHub() {
             }
             type="button"
           >
-            {notificationState.isLoading ? "Se pregatesc..." : "Genereaza notificari"}
+            {notificationState.isLoading ? t("notifLoading") : t("notifBtn")}
           </button>
           <NotificationsResult state={notificationState} />
         </PremiumTool>
       </div>
 
-      <PremiumTool title="Analiza poza cu mancare">
+      <PremiumTool title={t("photoTitle")}>
         <div className="grid gap-3">
           <label className="cursor-pointer rounded-lg border border-[#d8d2bf] bg-[#fbfaf4] p-3 text-sm font-black">
-            {photoFile ? photoFile.name : "Alege poza cu mancare"}
+            {photoFile ? photoFile.name : t("choosePhoto")}
             <input
             accept="image/*"
             className="sr-only"
@@ -696,12 +701,11 @@ export function PremiumHub() {
           <input
             className="h-12 rounded-lg border border-[#d8d2bf] bg-[#fbfaf4] px-4 text-sm font-semibold outline-none focus:border-[#123f31]"
             onChange={(event) => setPhotoNote(event.target.value)}
-            placeholder="Optional: corecteaza AI-ul, ex: nu sunt paste, sunt morcovi"
+            placeholder={t("photoNotePlaceholder")}
             value={photoNote}
           />
           <p className="text-sm font-semibold leading-6 text-[#62695f]">
-            Fara descriere, Forma foloseste denumiri prudente pentru alimente neclare. Scrie ce stii
-            sigur din farfurie pentru o estimare mai buna.
+            {t("photoHelp")}
           </p>
         </div>
         <button
@@ -710,7 +714,7 @@ export function PremiumHub() {
           onClick={analyzePhoto}
           type="button"
         >
-          {photoState.isLoading ? "Se analizeaza..." : "Analizeaza poza"}
+          {photoState.isLoading ? t("photoLoading") : t("photoBtn")}
         </button>
         <FoodPhotoResult state={photoState} />
       </PremiumTool>

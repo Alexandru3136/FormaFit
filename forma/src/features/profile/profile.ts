@@ -63,34 +63,6 @@ export const trainingDayOptions: TrainingDay[] = [
   "sunday",
 ];
 
-export function trainingDayLabel(day: TrainingDay) {
-  return {
-    friday: "Vineri",
-    monday: "Luni",
-    saturday: "Sambata",
-    sunday: "Duminica",
-    thursday: "Joi",
-    tuesday: "Marti",
-    wednesday: "Miercuri",
-  }[day];
-}
-
-export function trainingPlaceLabel(place: TrainingPlace) {
-  return {
-    gym: "Sala",
-    home: "Acasa",
-    mixed: "Mixt",
-  }[place];
-}
-
-export function experienceLabel(level: ExperienceLevel) {
-  return {
-    beginner: "Incepator",
-    intermediate: "Intermediar",
-    advanced: "Avansat",
-  }[level];
-}
-
 export function validateProfile(profile: UserProfile): ProfileValidationResult {
   const errors: string[] = [];
 
